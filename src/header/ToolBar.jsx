@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import UserContext from '../context/appUser/UserContext';
 import { AppBar, Tab, Tabs, Toolbar } from '@mui/material';
-import KeyboardAltSharpIcon from '@mui/icons-material/KeyboardAltSharp';
+import WorkHistorySharpIcon from '@mui/icons-material/WorkHistorySharp';
 import { Link } from 'react-router-dom';
 
 function ToolBar() {
@@ -27,10 +27,18 @@ function ToolBar() {
 
   const renderBDToolbar = () => (
     <div>
-      <button>Clients</button>
-      <button>Jobs</button>
-      <button>WorkPlans</button>
-      <button>Logout</button>
+      <Link to='/bd/jobs'> Jobs</Link>
+      {` `}
+      {/* <Link to='/hr/transfer'> Transfers</Link> */}
+      {` `}
+      {/* <Link to='/hr/posting'> Postings</Link> */}
+      {` `}
+      {/* <Link to='/'> Logout</Link> */}
+      {/* <a href={`/`}>LogOut</a> */}
+      <Link to='/' onClick={logOutUser}>
+        {' '}
+        Logout
+      </Link>
     </div>
   );
   const defaultToolbar = () => (
@@ -58,7 +66,7 @@ function ToolBar() {
     <>
       <AppBar sx={{ bgcolor: 'transparent', position: 'sticky' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <KeyboardAltSharpIcon sx={{ color: 'black' }} />
+          <WorkHistorySharpIcon sx={{ color: 'black' }} />
           <div>{renderToolbar()}</div>
         </Toolbar>
       </AppBar>

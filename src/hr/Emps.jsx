@@ -109,6 +109,7 @@ const Emps = () => {
     <Box sx={{ height: 1000, width: '100%' }}>
       <DataGrid
         rows={emps}
+        getRowId={(row) => row.id + row.mobile}
         columns={columns}
         initialState={{
           pagination: {
