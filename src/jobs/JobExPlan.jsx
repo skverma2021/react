@@ -26,7 +26,17 @@ function JobExPlan() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          backgroundColor: 'primary.light',
+          marginTop: '20px',
+          marginBottom: '20px',
+          paddingTop: '20px',
+          paddingBottom: '20px',
+        }}
+      >
         <div style={{ width: '40px' }}>SL</div>
         <div style={{ width: '300px' }}>Stage</div>
         <div style={{ width: '300px' }}>Department</div>

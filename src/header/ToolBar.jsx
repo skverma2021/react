@@ -43,7 +43,8 @@ function ToolBar() {
   );
   const defaultToolbar = () => (
     <div>
-      <a href={`/auth`}>Auth</a>
+      {/* <a href={`/auth`}>Auth</a> */}
+      <a href={`/`}>Auth</a>
     </div>
   );
 

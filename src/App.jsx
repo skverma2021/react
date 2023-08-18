@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 // import Header from './header/Header Copy';
@@ -15,16 +16,27 @@ import JobAll from './jobs/JobAll';
 import JobUpd from './jobs/JobUpd';
 import JobExPlan from './jobs/JobExPlan';
 import JobExPlanAdd from './jobs/JobExPlanAdd';
+import BDDhome from './bdd/BDDhome';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   return (
     <>
       <header>
         <ToolBar />
       </header>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/auth' element={<Auth />} />
+        <Route
+          path='/'
+          element={
+            isAuthenticated ? (
+              <Home />
+            ) : (
+              <Auth setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
+        />
+        {/* <Route path='/auth' element={<Auth setIsAuthenticated={setIsAuthenticated} />} /> */}
 
         <Route path='/hr/emp' element={<Emps />} />
         <Route path='/hr/emp/upd/:id' element={<EmpUpd />} />
@@ -32,6 +44,7 @@ function App() {
         <Route path='/hr/transfer' element={<Transfer />} />
         <Route path='/hr/posting' element={<Posting />} />
 
+        <Route path='/bd' element={<BDDhome />} />
         <Route path='/bd/jobs' element={<JobAll />} />
         <Route path='/bd/jobs/upd/:id' element={<JobUpd />} />
         <Route path='/bd/jobs/ex/:id' element={<JobExPlan />} />

@@ -30,11 +30,11 @@ function JobExPlanAdd() {
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          backgroundColor: 'primary.dark',
-          '&:hover': {
-            backgroundColor: 'primary.main',
-            opacity: [0.9, 0.8, 0.7],
-          },
+          backgroundColor: 'primary.light',
+          marginTop: '20px',
+          marginBottom: '20px',
+          paddingTop: '20px',
+          paddingBottom: '20px',
         }}
       >
         <div style={{ width: '40px' }}>SL</div>

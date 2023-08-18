@@ -20,7 +20,7 @@ const Container = styled(FormGroup)`
   }
 `;
 
-const Auth = () => {
+const Auth = ({ setIsAuthenticated }) => {
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
 
@@ -35,6 +35,7 @@ const Auth = () => {
     try {
       await getUser(theEmp.eMail, theEmp.pass);
       // navigate('/');
+      setIsAuthenticated(true);
       if (user.length !== 0) return <Home />;
     } catch (error) {
       console.log(error);
