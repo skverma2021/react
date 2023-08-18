@@ -10,7 +10,9 @@ function ToolBar() {
 
   const renderHRToolbar = () => (
     <div>
-      <Link to='/hr/emp'> Emps</Link>
+      <Link to='/hr/emp'> allEmps</Link>
+      {` `}
+      <Link to='/hr/emp/add'> newEmp</Link>
       {` `}
       <Link to='/hr/transfer'> Transfers</Link>
       {` `}
@@ -27,9 +29,9 @@ function ToolBar() {
 
   const renderBDToolbar = () => (
     <div>
-      <Link to='/bd/jobs'> Jobs</Link>
+      <Link to='/bd/jobs'> allJobs</Link>
       {` `}
-      {/* <Link to='/hr/transfer'> Transfers</Link> */}
+      <Link to='/bd/jobs/add'> addJobs</Link>
       {` `}
       {/* <Link to='/hr/posting'> Postings</Link> */}
       {` `}

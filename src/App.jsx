@@ -17,6 +17,8 @@ import JobUpd from './jobs/JobUpd';
 import JobExPlan from './jobs/JobExPlan';
 import JobExPlanAdd from './jobs/JobExPlanAdd';
 import BDDhome from './bdd/BDDhome';
+import EmpAdd from './hr/EmpAdd';
+import JobAdd from './jobs/JobAdd';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,6 +41,7 @@ function App() {
         {/* <Route path='/auth' element={<Auth setIsAuthenticated={setIsAuthenticated} />} /> */}
 
         <Route path='/hr/emp' element={<Emps />} />
+        <Route path='/hr/emp/add' element={<EmpAdd />} />
         <Route path='/hr/emp/upd/:id' element={<EmpUpd />} />
         {/* <Route path='/hr/emp/del' element={<Emps />} /> */}
         <Route path='/hr/transfer' element={<Transfer />} />
@@ -46,6 +49,7 @@ function App() {
 
         <Route path='/bd' element={<BDDhome />} />
         <Route path='/bd/jobs' element={<JobAll />} />
+        <Route path='/bd/jobs/add' element={<JobAdd />} />
         <Route path='/bd/jobs/upd/:id' element={<JobUpd />} />
         <Route path='/bd/jobs/ex/:id' element={<JobExPlan />} />
         <Route path='/bd/jobs/exAdd/:id' element={<JobExPlanAdd />} />

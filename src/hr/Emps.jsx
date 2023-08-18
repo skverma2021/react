@@ -59,36 +59,41 @@ const columns = [
     field: 'eMailId',
   },
   {
-    // field: 'id',
-    headerName: 'Edit',
+    field: 'id1',
+    headerName: 'update',
+    width: 75,
+    renderCell: (params) => <Link to={`./upd/${params.id}`}> 🖍️</Link>,
+  },
+  {
+    field: 'id2',
+    headerName: 'del',
     width: 75,
     renderCell: (params) => (
-      <>
-        <Link to={`./upd/${params.id}`}> 🖍️</Link>
-        {/* <a
-          href={`./emp/upd/${params.id}`}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          🖍️
-        </a> */}
-        <Link onClick={() => deleteEmpData(`${params.id}`)}> 🗑️</Link>
-        {/* <a onClick={() => deleteEmpData(`${params.id}`)}>🗑️</a> */}
-        {/* <a
-          href={`./emp/upd/${params.id}`}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          📙
-        </a> */}
-      </>
+      <Link onClick={() => deleteEmpData(`${params.id}`)}> 🗑️</Link>
     ),
   },
 ];
 
-const deleteEmpData = (t) => {
-  console.log(t);
+const deleteEmpData = async (t) => {
+  try {
+    const res = await axios.delete(`http://localhost:3000/api/emps/${t}`);
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+// const deleteEmpData = async (theEmpId) => {
+//   // console.log(theEmpId);
+//   // console.log(`http://localhost:3000/api/emps/${theEmpId}`);
+//   try {
+//     const res = await axios.delete(
+//       `http://localhost:3000/api/emps/${theEmpId}`
+//     );
+//     // setEmps(res.data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const Emps = () => {
   const [emps, setEmps] = useState([]);
@@ -109,16 +114,16 @@ const Emps = () => {
     <Box sx={{ height: 1000, width: '100%' }}>
       <DataGrid
         rows={emps}
-        getRowId={(row) => row.id + row.mobile}
+        // getRowId={(row) => row.id + row.mobile}
         columns={columns}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 20,
+              pageSize: 15,
             },
           },
         }}
-        pageSizeOptions={[20]}
+        pageSizeOptions={[15]}
         checkboxSelection
         disableRowSelectionOnClick
       />
