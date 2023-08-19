@@ -113,8 +113,9 @@ function JobUpd() {
         />
       </FormControl>
       <FormControl fullWidth>
-        <InputLabel id='demo-simple-select-label'>Client</InputLabel>
-        <Select
+        {/* <InputLabel id='demo-simple-select-label'>Client</InputLabel> */}
+
+        {/* <Select
           name='clientId'
           labelId='demo-simple-select-label'
           id='demo-simple-select'
@@ -124,7 +125,25 @@ function JobUpd() {
         >
           <MenuItem>""</MenuItem>
           {clientOptions}
-        </Select>
+        </Select> */}
+        <label>Client:</label>
+        <select
+          name='clientId'
+          id='clientId'
+          value={theClient || ''}
+          onChange={(e) => {
+            return setTheClient(e.target.value);
+          }}
+        >
+          {/* <option value=''>Select Client</option> */}
+          {clients.map((c) => {
+            return (
+              <option key={c.id} value={c.id}>
+                {c.shortName}
+              </option>
+            );
+          })}
+        </select>
       </FormControl>
       <FormControl>
         <InputLabel>StartDate:</InputLabel>

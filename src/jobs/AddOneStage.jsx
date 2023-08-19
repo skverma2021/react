@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 // import './workPlan.css';
 
 const AddOneStage = (props) => {
@@ -12,8 +14,21 @@ const AddOneStage = (props) => {
   if (depttId) upd = true;
 
   const [theDeptt, setTheDeptt] = useState(depttId);
+  const [deptts, setDeptts] = useState([]);
   const [theStart, setTheStart] = useState(startDt);
   const [theEnd, setTheEnd] = useState(endDt);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/api/department`);
+        setDeptts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const saveRec = async () => {
     try {
@@ -55,12 +70,23 @@ const AddOneStage = (props) => {
         <div style={{ width: '40px' }}>{stageId}</div>
         <div style={{ width: '300px' }}>{theStage}</div>
         <div style={{ width: '300px' }}>
-          <input
+          <select
+            name='depttId'
+            id='depttId'
             value={theDeptt || ''}
             onChange={(e) => {
               return setTheDeptt(e.target.value);
             }}
-          />
+          >
+            <option value=''>Select Deptt</option>
+            {deptts.map((d) => {
+              return (
+                <option key={d.id} value={d.id}>
+                  {d.name}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div style={{ width: '300px' }}>
           <input

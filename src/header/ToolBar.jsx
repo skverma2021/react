@@ -43,6 +43,17 @@ function ToolBar() {
       </Link>
     </div>
   );
+  const renderBookingToolbar = () => (
+    <div>
+      <Link to={`/booking/${user[0].id}/6/2023`}> allJobs</Link>
+      {` `}
+
+      <Link to='/' onClick={logOutUser}>
+        {' '}
+        Logout
+      </Link>
+    </div>
+  );
   const defaultToolbar = () => (
     <div>
       {/* <a href={`/auth`}>Auth</a> */}
@@ -60,6 +71,8 @@ function ToolBar() {
         return renderHRToolbar();
       case 6:
         return renderBDToolbar();
+      case 1:
+        return renderBookingToolbar();
       default:
         return null; // Unknown department
     }

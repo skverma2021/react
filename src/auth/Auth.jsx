@@ -21,6 +21,7 @@ const Container = styled(FormGroup)`
 `;
 
 const Auth = ({ setIsAuthenticated }) => {
+  // console.log(setIsAuthenticated);
   const userContext = useContext(UserContext);
   const { user, getUser } = userContext;
 

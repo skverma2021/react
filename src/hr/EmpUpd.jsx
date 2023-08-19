@@ -123,7 +123,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.uId }}
+          // InputLabelProps={{ shrink: !!emp.uId }}
         />
       </FormControl>
       <FormControl>
@@ -134,7 +134,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.fName }}
+          // InputLabelProps={{ shrink: !!emp.fName }}
         />
       </FormControl>
       <FormControl>
@@ -155,7 +155,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.sName }}
+          // InputLabelProps={{ shrink: !!emp.sName }}
         />
       </FormControl>
       <FormControl>
@@ -166,7 +166,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.title }}
+          // InputLabelProps={{ shrink: !!emp.title }}
         />
       </FormControl>
       <FormControl>
@@ -188,7 +188,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.gender }}
+          // InputLabelProps={{ shrink: !!emp.gender }}
         />
       </FormControl>
       <FormControl>
@@ -199,11 +199,11 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.addLine1 }}
+          // InputLabelProps={{ shrink: !!emp.addLine1 }}
         />
       </FormControl>
       <FormControl fullWidth>
-        <InputLabel id='demo-simple-select-label'>City</InputLabel>
+        {/* <InputLabel id='demo-simple-select-label'>City</InputLabel>
         <Select
           name='cityId'
           labelId='demo-simple-select-label'
@@ -212,17 +212,29 @@ const EmpUpd = () => {
           label='City'
           onChange={(e) => setTheCity(e.target.value)}
         >
-          {/* <MenuItem value={''}>select</MenuItem> */}
+
           <MenuItem>""</MenuItem>
           {cityOptions}
-          {/* {cities.map((c) => {
+
+        </Select> */}
+        <label>City:</label>
+        <select
+          name='cityId'
+          id='cityId'
+          value={theCity || ''}
+          onChange={(e) => {
+            return setTheCity(e.target.value);
+          }}
+        >
+          {/* <option value=''>Select Client</option> */}
+          {cities.map((c) => {
             return (
-              <MenuItem key={c.id} value={c.id}>
+              <option key={c.id} value={c.id}>
                 {c.cityName}
-              </MenuItem>
+              </option>
             );
-          })} */}
-        </Select>
+          })}
+        </select>
       </FormControl>
       <FormControl>
         <InputLabel>Mobile:</InputLabel>
@@ -232,7 +244,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.mobile }}
+          // InputLabelProps={{ shrink: !!emp.mobile }}
         />
       </FormControl>
       <FormControl>
@@ -243,7 +255,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.eMailId }}
+          // InputLabelProps={{ shrink: !!emp.eMailId }}
         />
       </FormControl>
       <FormControl>
@@ -254,7 +266,7 @@ const EmpUpd = () => {
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.passwd }}
+          // InputLabelProps={{ shrink: !!emp.passwd }}
         />
       </FormControl>
       <FormControl>
