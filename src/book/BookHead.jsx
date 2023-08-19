@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import BookDet from './BookDet';
-import './book.css';
+// import './book.css';
 
 const BookHead = () => {
   const [empDet, setEmpDet] = useState({});
@@ -50,7 +50,7 @@ const BookHead = () => {
       console.log(error);
     }
   };
-
+  const bookingWidth = parseInt(85.0 / empDet.curWorkPlans);
   return (
     <>
       <div>
@@ -65,14 +65,32 @@ const BookHead = () => {
           workPlans:{empDet.curWorkPlans}]
         </i>
       </div>
-      <div id='spreadSheet'>
-        <div id='theHeader'>
-          <dth>Date</dth>
-          <jbh class='flex-container'>
+      {/* the entire sheet */}
+      <div>
+        {/* the header */}
+        <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
+          <div style={{ width: '10%' }}>
+            <strong>Date</strong>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              width: '85%',
+              justifyContent: 'space-between',
+            }}
+          >
             {wpDet.map((t) => {
               return (
-                <div class='item' key={t.wpId}>
+                <div
+                  key={t.wpId}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: `${bookingWidth}%`,
+                  }}
+                >
                   <div>
+                    {' '}
                     <strong>{t.nameJob}</strong>
                   </div>
                   <div>
@@ -84,8 +102,10 @@ const BookHead = () => {
                 </div>
               );
             })}
-          </jbh>
-          {/* <acth>action</acth> */}
+          </div>
+          <div style={{ width: '5%' }}>
+            <strong>action</strong>
+          </div>
         </div>
         {bookDays.map((d) => {
           return <BookDet key={d.id} empId={id} bookDay={d} />;

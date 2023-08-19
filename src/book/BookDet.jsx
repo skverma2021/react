@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import './book.css';
+// import './book.css';
 
 const BookDet = ({ empId, bookDay }) => {
   const [bData, setBData] = useState([]);
@@ -72,29 +72,31 @@ const BookDet = ({ empId, bookDay }) => {
   };
 
   return (
-    <div id='theRow'>
-      <dt>{bookDay.theDay}</dt>
-      <jb class='flex-container'>
+    <div style={{ display: 'flex', width: '100%' }}>
+      <div style={{ width: '10%' }}>{bookDay.theDay}</div>
+      <div
+        style={{
+          display: 'flex',
+          width: '85%',
+          justifyContent: 'space-between',
+        }}
+      >
         {bData.map((t, index) => {
           return (
-            <>
-              <div className='item' key={t.theWpId}>
-                <input
-                  key={index}
-                  type='text'
-                  value={t.theBooking}
-                  size='10'
-                  onChange={(e) => handleInputChange(index, e)}
-                />
-              </div>
-            </>
+            <input
+              key={index}
+              type='text'
+              value={t.theBooking}
+              // size='10'
+              onChange={(e) => handleInputChange(index, e)}
+            />
           );
         })}
-        <div className='item'>
-          <button onClick={handleUpdAdd}>save</button>
-        </div>
-      </jb>
-      {/* <act>action</act> */}
+      </div>
+      <div style={{ width: '5%' }}>
+        <button onClick={handleUpdAdd}>save</button>
+      </div>
+      {/* <div style={{ width: '5%' }}>action</div> */}
     </div>
   );
 };
