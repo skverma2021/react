@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Transfer from './Transfer';
+import PostingTrail from './PostingTrail';
+import TransferTrail from './TransferTrail';
 
 const TransferPosting = () => {
   const [empDet, setEmpDet] = useState({});
@@ -60,18 +62,40 @@ const TransferPosting = () => {
         </div>
         <div style={{ display: 'flex' }}>
           {/* Postings/Promotions */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              backgroundColor: 'lightblue',
+              width: '50%',
+              marginTop: '20px',
+            }}
+          >
+            <div style={{ padding: '10px' }}>
+              <PostingTrail theEmp={id} />
+            </div>
+            <div style={{ padding: '10px' }}>
               <Posting theEmp={id} />
             </div>
-            <div>PreadUpdDel</div>
           </div>
           {/* Transfers */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              backgroundColor: 'lightgray',
+              width: '50%',
+              marginTop: '20px',
+            }}
+          >
+            <div style={{ padding: '10px' }}>
+              <TransferTrail theEmp={id} />
+            </div>
+            <div style={{ padding: '10px' }}>
               <Transfer theEmp={id} />
             </div>
-            <div>TreadUpdDel</div>
           </div>
         </div>
       </div>

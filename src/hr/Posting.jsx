@@ -33,7 +33,7 @@ const Posting = ({ theEmp }) => {
         fromDt: fromDt,
       });
       console.log(
-        `Success: posting for ${id} - ${theDesig} from ${fromDt} created`
+        `Success: posting for ${theEmp} - ${theDesig} from ${fromDt} created`
       );
       navigate('/');
     } catch (error) {
