@@ -50,10 +50,13 @@ const BookHead = () => {
       console.log(error);
     }
   };
-  const bookingWidth = parseInt(85.0 / empDet.curWorkPlans);
+  const bookingWidth = Math.round(
+    parseFloat(85.0 / (empDet.curWorkPlans * 1.0)),
+    0
+  );
   return (
     <>
-      <div>
+      <div style={{ backgroundColor: 'lightcyan' }}>
         <u>
           <strong>{empDet.theName}</strong>, {empDet.theDesig}, [
           {empDet.theGrade}]
@@ -68,7 +71,14 @@ const BookHead = () => {
       {/* the entire sheet */}
       <div>
         {/* the header */}
-        <div style={{ display: 'flex', width: '100%', marginTop: '20px' }}>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            marginTop: '20px',
+            backgroundColor: 'lightblue',
+          }}
+        >
           <div style={{ width: '10%' }}>
             <strong>Date</strong>
           </div>
@@ -104,7 +114,7 @@ const BookHead = () => {
             })}
           </div>
           <div style={{ width: '5%' }}>
-            <strong>action</strong>
+            <strong>save</strong>
           </div>
         </div>
         {bookDays.map((d) => {

@@ -45,7 +45,7 @@ function ToolBar() {
   );
   const renderBookingToolbar = () => (
     <div>
-      <Link to={`/booking/${user[0].id}/6/2023`}> allJobs</Link>
+      <Link to={`/booking/${user[0].id}/6/2023`}> bookings</Link>
       {` `}
 
       <Link to='/' onClick={logOutUser}>
@@ -71,7 +71,7 @@ function ToolBar() {
         return renderHRToolbar();
       case 6:
         return renderBDToolbar();
-      case 1:
+      case (1, 2):
         return renderBookingToolbar();
       default:
         return null; // Unknown department

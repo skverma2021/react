@@ -9,7 +9,7 @@ import { DataGrid } from '@mui/x-data-grid';
 const columns = [
   {
     headerName: 'UID',
-    width: 50,
+    width: 40,
     field: 'id',
     type: 'number',
   },
@@ -43,7 +43,7 @@ const columns = [
   },
   {
     headerName: 'City',
-    width: 100,
+    width: 75,
     field: 'theCity',
     sortable: true,
   },
@@ -61,16 +61,22 @@ const columns = [
   {
     field: 'id1',
     headerName: 'update',
-    width: 75,
+    width: 50,
     renderCell: (params) => <Link to={`./upd/${params.id}`}> 🖍️</Link>,
   },
   {
     field: 'id2',
     headerName: 'del',
-    width: 75,
+    width: 50,
     renderCell: (params) => (
       <Link onClick={() => deleteEmpData(`${params.id}`)}> 🗑️</Link>
     ),
+  },
+  {
+    field: 'id3',
+    headerName: 'PandT',
+    width: 50,
+    renderCell: (params) => <Link to={`./tp/${params.id}`}> ↗️</Link>,
   },
 ];
 

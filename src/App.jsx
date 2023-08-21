@@ -8,6 +8,7 @@ import Auth from './auth/Auth';
 // import HRhome from './hr/HRhome';
 import Emps from './hr/Emps';
 import EmpUpd from './hr/EmpUpd';
+import TransferPosting from './hr/TransferPosting';
 import Transfer from './hr/Transfer';
 import Posting from './hr/Posting';
 // import LoggedOut from './auth/LoggedOut';
@@ -44,6 +45,7 @@ function App() {
         <Route path='/hr/emp' element={<Emps />} />
         <Route path='/hr/emp/add' element={<EmpAdd />} />
         <Route path='/hr/emp/upd/:id' element={<EmpUpd />} />
+        <Route path='/hr/emp/tp/:id' element={<TransferPosting />} />
         {/* <Route path='/hr/emp/del' element={<Emps />} /> */}
         <Route path='/hr/transfer' element={<Transfer />} />
         <Route path='/hr/posting' element={<Posting />} />

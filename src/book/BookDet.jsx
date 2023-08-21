@@ -94,9 +94,9 @@ const BookDet = ({ empId, bookDay }) => {
         })}
       </div>
       <div style={{ width: '5%' }}>
-        <button onClick={handleUpdAdd}>save</button>
+        <button onClick={handleUpdAdd}>🖍️</button>
       </div>
-      {/* <div style={{ width: '5%' }}>action</div> */}
+      {/* <div style={{ width: '5%' }}>action</div>💾🖍️💽 */}
     </div>
   );
 };
