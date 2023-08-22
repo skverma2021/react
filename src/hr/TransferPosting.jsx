@@ -20,7 +20,7 @@ const TransferPosting = () => {
         `http://localhost:3000/api/empBookHead/${id}`
       );
       setEmpDet(res.data[0]);
-      console.log(res.data[0]);
+      // console.log(res.data[0]);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +45,7 @@ const TransferPosting = () => {
               height: '50%',
             }}
           >
-            <h2>{empDet.theName}</h2>, {empDet.theDesig}, [{empDet.theGrade}]
+            <h2>{empDet.theName}</h2> {empDet.theDesig}, [{empDet.theGrade}]
           </div>
           <div
             style={{
@@ -54,9 +54,9 @@ const TransferPosting = () => {
           >
             <i>
               <h3>
-                {empDet.theDeptt}, {empDet.theDiscp}
+                {empDet.theDeptt} {empDet.theDiscp}
               </h3>
-              , [{empDet.theHrRate}Rs/hr]
+              [{empDet.theHrRate}Rs/hr]
             </i>
           </div>
         </div>

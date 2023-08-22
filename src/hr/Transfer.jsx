@@ -33,7 +33,7 @@ const Transfer = ({ theEmp }) => {
         fromDt: fromDt,
       });
       console.log(
-        `Success: transfer for ${id} - ${theDeptt} from ${fromDt} created`
+        `Success: transfer for ${theEmp} - ${theDeptt} from ${fromDt} created`
       );
       navigate('/');
     } catch (error) {
