@@ -4,12 +4,22 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Posting = ({ theEmp }) => {
+const Posting = ({ theEmp, updEmpDesigId, updDesigId, updDesigDt }) => {
+  // theEmp={id}
+  // updEmpDesigId={updEmpDesigId}
+  // updDesigId={updEmpDesig}
+  // updDesigDt={updEmpDesigDt}
+  // console.log(theEmp, updEmpDesigId, updDesigId, updDesigDt);
   const [fromDt, setFromDt] = useState('');
   const [desigs, setDesigs] = useState([]);
   const [theDesig, setTheDesig] = useState('');
-  // const { id } = useParams();
+  // console.log(updId);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTheDesig(updDesigId);
+    setFromDt(updDesigDt);
+  }, [updDesigId, updDesigDt]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,16 +36,25 @@ const Posting = ({ theEmp }) => {
   }, []);
 
   const saveRec = async () => {
+    //theId:'', theDesigId:'', theFromDt:''
     try {
-      await axios.post('http://localhost:3000/api/designation/posting', {
-        empId: theEmp,
-        desigId: theDesig,
-        fromDt: fromDt,
-      });
-      console.log(
-        `Success: posting for ${theEmp} - ${theDesig} from ${fromDt} created`
-      );
-      navigate('/');
+      if (updEmpDesigId) {
+        // console.log(theEmp, theDesig, fromDt);
+        await axios.put(
+          `http://localhost:3000/api/designation/${updEmpDesigId}/empDesig`,
+          {
+            empId: theEmp,
+            desigId: theDesig,
+            fromDt: fromDt,
+          }
+        );
+      } else {
+        await axios.post('http://localhost:3000/api/designation/posting', {
+          empId: theEmp,
+          desigId: theDesig,
+          fromDt: fromDt,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -44,11 +63,11 @@ const Posting = ({ theEmp }) => {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h4>Postings</h4>
+        <h4>Add Postings</h4>
         <div style={{ display: 'flex' }}>
           <select
-            name='theDesigId'
-            id='theDesigId'
+            name='theDesig'
+            id='theDesig'
             value={theDesig || ''}
             onChange={(e) => setTheDesig(e.target.value)}
           >

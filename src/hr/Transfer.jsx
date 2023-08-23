@@ -44,7 +44,7 @@ const Transfer = ({ theEmp }) => {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h4>Transfers</h4>
+        <h4>Add Transfers</h4>
         <div style={{ display: 'flex' }}>
           <select
             name='theDeptt'

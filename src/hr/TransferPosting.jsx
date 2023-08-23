@@ -9,6 +9,11 @@ import TransferTrail from './TransferTrail';
 
 const TransferPosting = () => {
   const [empDet, setEmpDet] = useState({});
+
+  const [updEmpDesigId, setUpdEmpDesigId] = useState('');
+  const [updEmpDesig, setUpdEmpDesig] = useState('');
+  const [updEmpDesigDt, setUpdEmpDesigDt] = useState('');
+
   const { id } = useParams();
   useEffect(() => {
     getEmpDet();
@@ -73,10 +78,20 @@ const TransferPosting = () => {
             }}
           >
             <div style={{ padding: '10px' }}>
-              <PostingTrail theEmp={id} />
+              <PostingTrail
+                theEmp={id}
+                updEmpDesigIdFn={setUpdEmpDesigId}
+                updDesigIdFn={setUpdEmpDesig}
+                updDesigDtFn={setUpdEmpDesigDt}
+              />
             </div>
             <div style={{ padding: '10px' }}>
-              <Posting theEmp={id} />
+              <Posting
+                theEmp={id}
+                updEmpDesigId={updEmpDesigId}
+                updDesigId={updEmpDesig}
+                updDesigDt={updEmpDesigDt}
+              />
             </div>
           </div>
           {/* Transfers */}
