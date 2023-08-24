@@ -6,13 +6,17 @@ import axios from 'axios';
 import Transfer from './Transfer';
 import PostingTrail from './PostingTrail';
 import TransferTrail from './TransferTrail';
+import TPContext from '../context/tp/TPcontext';
 
 const TransferPosting = () => {
   const [empDet, setEmpDet] = useState({});
+  // const tpContext = useContext(TPContext);
 
-  const [updEmpDesigId, setUpdEmpDesigId] = useState('');
-  const [updEmpDesig, setUpdEmpDesig] = useState('');
-  const [updEmpDesigDt, setUpdEmpDesigDt] = useState('');
+  // const [updEmpDesigId, setUpdEmpDesigId] = useState('');
+  // const [updEmpDesig, setUpdEmpDesig] = useState('');
+  // const [updEmpDesigDt, setUpdEmpDesigDt] = useState('');
+
+  // tpContext.resetTP();
 
   const { id } = useParams();
   useEffect(() => {
@@ -78,20 +82,10 @@ const TransferPosting = () => {
             }}
           >
             <div style={{ padding: '10px' }}>
-              <PostingTrail
-                theEmp={id}
-                updEmpDesigIdFn={setUpdEmpDesigId}
-                updDesigIdFn={setUpdEmpDesig}
-                updDesigDtFn={setUpdEmpDesigDt}
-              />
+              <PostingTrail theEmp={id} />
             </div>
             <div style={{ padding: '10px' }}>
-              <Posting
-                theEmp={id}
-                updEmpDesigId={updEmpDesigId}
-                updDesigId={updEmpDesig}
-                updDesigDt={updEmpDesigDt}
-              />
+              <Posting theEmp={id} />
             </div>
           </div>
           {/* Transfers */}

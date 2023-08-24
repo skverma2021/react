@@ -1,22 +1,19 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import TPContext from '../context/tp/TPcontext';
 
-const PostingTrail = ({
-  theEmp,
-  updEmpDesigIdFn,
-  updDesigIdFn,
-  updDesigDtFn,
-}) => {
+const PostingTrail = ({ theEmp }) => {
   const [postings, setPostings] = useState([]);
+  const tpContext = useContext(TPContext);
 
-  const prepUpdRec = (id, desig, dt) => {
-    updEmpDesigIdFn(id);
-    updDesigIdFn(desig);
-    updDesigDtFn(dt);
-  };
+  // const prepUpdRec = (id, desig, dt) => {
+  //   updEmpDesigIdFn(id);
+  //   updDesigIdFn(desig);
+  //   updDesigDtFn(dt);
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,7 +86,9 @@ const PostingTrail = ({
             </div>
             <div style={{ width: '5%', border: '1px solid black' }}>
               <Link
-                onClick={() => prepUpdRec(t.theId, t.theDesigId, t.theFromDt)}
+                onClick={() =>
+                  tpContext.setDg(t.theId, t.theDesigId, t.theFromDt)
+                }
               >
                 🖍️
               </Link>

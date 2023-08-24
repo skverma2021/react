@@ -1,15 +1,23 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import TPContext from '../context/tp/TPcontext';
 
 const Transfer = ({ theEmp }) => {
   const [fromDt, setFromDt] = useState('');
   const [deptts, setDeptts] = useState([]);
   const [theDeptt, setTheDeptt] = useState('');
+
+  const tpContext = useContext(TPContext);
   // const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTheDeptt(tpContext.tpState.dpId);
+    setFromDt(tpContext.tpState.edpFd);
+  }, [tpContext.tpState.dpId, tpContext.tpState.edpFd]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,17 +33,42 @@ const Transfer = ({ theEmp }) => {
     fetchData();
   }, []);
 
+  // const saveRec = async () => {
+  //   try {
+  //     await axios.post('http://localhost:3000/api/department/posting', {
+  //       empId: theEmp,
+  //       depttId: theDeptt,
+  //       fromDt: fromDt,
+  //     });
+  //     console.log(
+  //       `Success: transfer for ${theEmp} - ${theDeptt} from ${fromDt} created`
+  //     );
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const saveRec = async () => {
+    //theId:'', theDesigId:'', theFromDt:''
     try {
-      await axios.post('http://localhost:3000/api/department/posting', {
-        empId: theEmp,
-        depttId: theDeptt,
-        fromDt: fromDt,
-      });
-      console.log(
-        `Success: transfer for ${theEmp} - ${theDeptt} from ${fromDt} created`
-      );
-      navigate('/');
+      if (tpContext.tpState.edpId) {
+        // console.log(theEmp, theDesig, fromDt);
+        await axios.put(
+          `http://localhost:3000/api/department/${tpContext.tpState.edpId}/empDeptt`,
+          {
+            empId: theEmp,
+            depttId: theDeptt,
+            fromDt: fromDt,
+          }
+        );
+        tpContext.resetTP();
+      } else {
+        await axios.post('http://localhost:3000/api/department/transfer', {
+          empId: theEmp,
+          depttId: theDeptt,
+          fromDt: fromDt,
+        });
+      }
     } catch (error) {
       console.log(error);
     }

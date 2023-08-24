@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import TPContext from '../context/tp/TPcontext';
 
-const Posting = ({ theEmp, updEmpDesigId, updDesigId, updDesigDt }) => {
+const Posting = ({ theEmp }) => {
   // theEmp={id}
   // updEmpDesigId={updEmpDesigId}
   // updDesigId={updEmpDesig}
@@ -13,13 +14,14 @@ const Posting = ({ theEmp, updEmpDesigId, updDesigId, updDesigDt }) => {
   const [fromDt, setFromDt] = useState('');
   const [desigs, setDesigs] = useState([]);
   const [theDesig, setTheDesig] = useState('');
+  const tpContext = useContext(TPContext);
   // console.log(updId);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTheDesig(updDesigId);
-    setFromDt(updDesigDt);
-  }, [updDesigId, updDesigDt]);
+    setTheDesig(tpContext.tpState.dgId);
+    setFromDt(tpContext.tpState.edgFd);
+  }, [tpContext.tpState.dgId, tpContext.tpState.edgFd]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,16 +40,17 @@ const Posting = ({ theEmp, updEmpDesigId, updDesigId, updDesigDt }) => {
   const saveRec = async () => {
     //theId:'', theDesigId:'', theFromDt:''
     try {
-      if (updEmpDesigId) {
-        // console.log(theEmp, theDesig, fromDt);
+      if (tpContext.tpState.edgId) {
+        console.log(theEmp, theDesig, fromDt);
         await axios.put(
-          `http://localhost:3000/api/designation/${updEmpDesigId}/empDesig`,
+          `http://localhost:3000/api/designation/${tpContext.tpState.edgId}/empDesig`,
           {
             empId: theEmp,
             desigId: theDesig,
             fromDt: fromDt,
           }
         );
+        tpContext.resetTP();
       } else {
         await axios.post('http://localhost:3000/api/designation/posting', {
           empId: theEmp,

@@ -1,11 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import TPContext from '../context/tp/TPcontext';
 
 const TransferTrail = ({ theEmp }) => {
   const [transfers, setTransfers] = useState([]);
+  const tpContext = useContext(TPContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +50,8 @@ const TransferTrail = ({ theEmp }) => {
           Department
         </div>
         <div style={{ width: '45%', border: '1px solid black' }}>from</div>
-        <div style={{ width: '10%', border: '1px solid black' }}>del</div>
+        <div style={{ width: '5%', border: '1px solid black' }}>upd</div>
+        <div style={{ width: '5%', border: '1px solid black' }}>del</div>
       </div>
       {transfers.map((t) => {
         return (
@@ -60,7 +63,16 @@ const TransferTrail = ({ theEmp }) => {
               {t.theFromDt}
             </div>
 
-            <div style={{ width: '10%', border: '1px solid black' }}>
+            <div style={{ width: '5%', border: '1px solid black' }}>
+              <Link
+                onClick={() =>
+                  tpContext.setDp(t.theId, t.theDepttId, t.theFromDt)
+                }
+              >
+                🖍️
+              </Link>
+            </div>
+            <div style={{ width: '5%', border: '1px solid black' }}>
               <Link onClick={() => deleteEmpDeptt(`${t.theId}`)}> 🗑️</Link>
             </div>
           </div>
