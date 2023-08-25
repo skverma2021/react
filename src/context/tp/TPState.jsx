@@ -41,25 +41,25 @@ const TPState = (props) => {
   const newDesigRec = () => {
     dispatch({
       type: NEW_REC_DESIG,
-      payLoad: { newRecDesig: true },
+      payLoad: { newRecDesig: (t) => !t },
     });
   };
   const updDesigRec = () => {
     dispatch({
       type: UPD_REC_DESIG,
-      payLoad: { updRecDesig: true },
+      payLoad: { updRecDesig: (t) => !t },
     });
   };
   const newDepttRec = () => {
     dispatch({
       type: NEW_REC_DEPTT,
-      payLoad: { newRecDeptt: true },
+      payLoad: { newRecDeptt: (t) => !t },
     });
   };
   const updDepttRec = () => {
     dispatch({
       type: UPD_REC_DEPTT,
-      payLoad: { updRecDeptt: true },
+      payLoad: { updRecDeptt: (t) => !t },
     });
   };
 
