@@ -51,12 +51,15 @@ const Posting = ({ theEmp }) => {
           }
         );
         tpContext.resetTP();
+        tpContext.updDesigRec();
       } else {
         await axios.post('http://localhost:3000/api/designation/posting', {
           empId: theEmp,
           desigId: theDesig,
           fromDt: fromDt,
         });
+
+        tpContext.newDesigRec();
       }
     } catch (error) {
       console.log(error);
@@ -66,7 +69,13 @@ const Posting = ({ theEmp }) => {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h4>Add Postings</h4>
+        <h4>
+          {tpContext.tpState.edgId ? (
+            <button onClick={() => tpContext.resetTP()}>✖️</button>
+          ) : (
+            'Add Postings'
+          )}
+        </h4>
         <div style={{ display: 'flex' }}>
           <select
             name='theDesig'

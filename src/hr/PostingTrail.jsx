@@ -27,7 +27,7 @@ const PostingTrail = ({ theEmp }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [tpContext.tpState.newRecDesig, tpContext.tpState.updRecDesig]);
 
   const deleteEmpDesig = async (theEmpDesigId) => {
     if (postings.length == 1) return;
@@ -99,6 +99,7 @@ const PostingTrail = ({ theEmp }) => {
           </div>
         );
       })}
+      {/* {tpContext.newRecReset()} */}
     </>
   );
 };

@@ -62,12 +62,14 @@ const Transfer = ({ theEmp }) => {
           }
         );
         tpContext.resetTP();
+        tpContext.updDepttRec();
       } else {
         await axios.post('http://localhost:3000/api/department/transfer', {
           empId: theEmp,
           depttId: theDeptt,
           fromDt: fromDt,
         });
+        tpContext.newDepttRec();
       }
     } catch (error) {
       console.log(error);
@@ -77,7 +79,13 @@ const Transfer = ({ theEmp }) => {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h4>Add Transfers</h4>
+        <h4>
+          {tpContext.tpState.edpId ? (
+            <button onClick={() => tpContext.resetTP()}>✖️</button>
+          ) : (
+            'Add Transfer'
+          )}
+        </h4>
         <div style={{ display: 'flex' }}>
           <select
             name='theDeptt'

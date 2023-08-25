@@ -1,7 +1,16 @@
 import TPContext from './TPcontext';
 import React, { useReducer } from 'react';
 import TPReducer from './TPReducer';
-import { EDIT_POSTING, EDIT_TRANSFER, EDIT_RESET } from '../types';
+import {
+  EDIT_POSTING,
+  EDIT_TRANSFER,
+  EDIT_RESET,
+  NEW_REC_DESIG,
+  UPD_REC_DESIG,
+  NEW_REC_DEPTT,
+  UPD_REC_DEPTT,
+} from '../types';
+
 const TPState = (props) => {
   const initialState = {
     edgId: '',
@@ -10,6 +19,10 @@ const TPState = (props) => {
     edpId: '',
     dpId: '',
     edpFd: '',
+    newRecDesig: false,
+    updRecDesig: false,
+    newRecDeptt: false,
+    updRecDeptt: false,
   };
   const [state, dispatch] = useReducer(TPReducer, initialState);
 
@@ -25,6 +38,31 @@ const TPState = (props) => {
       payLoad: { edpId: edpid, dpId: dpid, edpFd: edpfd },
     });
   };
+  const newDesigRec = () => {
+    dispatch({
+      type: NEW_REC_DESIG,
+      payLoad: { newRecDesig: true },
+    });
+  };
+  const updDesigRec = () => {
+    dispatch({
+      type: UPD_REC_DESIG,
+      payLoad: { updRecDesig: true },
+    });
+  };
+  const newDepttRec = () => {
+    dispatch({
+      type: NEW_REC_DEPTT,
+      payLoad: { newRecDeptt: true },
+    });
+  };
+  const updDepttRec = () => {
+    dispatch({
+      type: UPD_REC_DEPTT,
+      payLoad: { updRecDeptt: true },
+    });
+  };
+
   const resetTP = () => {
     dispatch({
       type: EDIT_RESET,
@@ -46,6 +84,10 @@ const TPState = (props) => {
         setDg,
         setDp,
         resetTP,
+        newDesigRec,
+        updDesigRec,
+        newDepttRec,
+        updDepttRec,
       }}
     >
       {props.children}

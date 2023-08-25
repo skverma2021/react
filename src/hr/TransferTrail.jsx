@@ -21,7 +21,7 @@ const TransferTrail = ({ theEmp }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [tpContext.tpState.newRecDeptt, tpContext.tpState.updRecDeptt]);
   // console.log(transfers);
   const deleteEmpDeptt = async (theEmpDepttId) => {
     if (transfers.length == 1) return;
