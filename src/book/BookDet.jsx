@@ -32,7 +32,7 @@ const BookDet = ({ empId, bookDay }) => {
   };
 
   const handleUpdAdd = () => {
-    console.log('Hi');
+    // console.log('Hi');
     bData.map((t) => {
       if (t.toUpd > 0) {
         //update
@@ -53,6 +53,8 @@ const BookDet = ({ empId, bookDay }) => {
     };
     try {
       const res = await axios.put(`http://localhost:3000/api/booking/`, rec);
+      // console.log(rec);
+      // console.log('Hi here!');
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +88,7 @@ const BookDet = ({ empId, bookDay }) => {
             <input
               key={index}
               type='text'
-              value={t.theBooking}
+              value={t.theBooking || ''}
               // size='10'
               onChange={(e) => handleInputChange(index, e)}
             />
