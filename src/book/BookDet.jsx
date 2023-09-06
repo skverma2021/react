@@ -49,7 +49,7 @@ const BookDet = ({ empId, bookDay }) => {
       empId: e,
       workPlanId: wp,
       dateId: d,
-      booking: b,
+      booking: b ? b : 0,
     };
     try {
       const res = await axios.put(`http://localhost:3000/api/booking/`, rec);
@@ -74,32 +74,31 @@ const BookDet = ({ empId, bookDay }) => {
   };
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <div style={{ width: '10%' }}>{bookDay.theDay}</div>
-      <div
-        style={{
-          display: 'flex',
-          width: '85%',
-          justifyContent: 'space-between',
-        }}
-      >
-        {bData.map((t, index) => {
-          return (
+    <>
+      <td style={{ border: '1px solid', background: 'lightblue' }}>
+        {bookDay.theDay}
+      </td>
+      {bData.map((t, index) => {
+        return (
+          <td key={index}>
             <input
-              key={index}
               type='text'
               value={t.theBooking || ''}
-              // size='10'
               onChange={(e) => handleInputChange(index, e)}
             />
-          );
-        })}
-      </div>
-      <div style={{ width: '5%' }}>
+          </td>
+        );
+      })}
+      <td
+        style={{
+          border: '1px solid',
+          background: 'lightblue',
+        }}
+      >
         <button onClick={handleUpdAdd}>🖍️</button>
-      </div>
+      </td>
       {/* <div style={{ width: '5%' }}>action</div>💾🖍️💽 */}
-    </div>
+    </>
   );
 };
 

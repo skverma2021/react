@@ -56,7 +56,7 @@ const BookHead = () => {
   );
   return (
     <>
-      <div style={{ backgroundColor: 'lightcyan' }}>
+      <div style={{ backgroundColor: 'lightcyan', marginTop: '10px' }}>
         <u>
           <strong>{empDet.theName}</strong>, {empDet.theDesig}, [
           {empDet.theGrade}]
@@ -69,70 +69,45 @@ const BookHead = () => {
         </i>
       </div>
       {/* the entire sheet */}
-      <div>
-        {/* the header */}
-        <div
-          style={{
-            display: 'flex',
-            width: '100%',
-            marginTop: '20px',
-            backgroundColor: 'lightblue',
-          }}
-        >
-          <div style={{ width: '10%' }}>
-            <strong>Date</strong>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              width: '85%',
-              justifyContent: 'space-between',
-            }}
-          >
+      <table style={{ marginTop: '10px' }}>
+        <thead>
+          <tr>
+            <th>✖️</th>
             {wpDet.map((t) => {
               return (
-                <div
+                <th
                   key={t.wpId}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: `${bookingWidth}%`,
-                  }}
+                  style={{ border: '1px solid', background: 'lightblue' }}
                 >
-                  <div>
-                    {' '}
-                    <strong>{t.nameJob}</strong>
-                  </div>
-                  <div>
-                    <i>{t.nameStage}</i>
-                  </div>
-                  <div>{t.dtStart}</div>
-                  <div>{t.dtEnd}</div>
-                  <div>{t.wpId}</div>
-                </div>
+                  {t.nameJob}
+                  <br />
+                  <i>{t.nameStage}</i>
+                  <br />
+                  {t.dtStart}
+                  <br />
+                  {t.dtEnd}
+                  <br />
+                  {t.wpId}
+                  <br />
+                </th>
               );
             })}
-          </div>
-          <div style={{ width: '5%' }}>
-            <strong>save</strong>
-          </div>
-        </div>
-        {bookDays.map((d) => {
-          return <BookDet key={d.id} empId={id} bookDay={d} />;
-        })}
-      </div>
+            <th style={{ border: '1px solid', background: 'lightblue' }}>
+              <strong>save</strong>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookDays.map((d) => {
+            return (
+              <tr key={d.id}>
+                <BookDet empId={id} bookDay={d} />
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </>
   );
 };
-// {bookDays.map((d) => {
-//   return (
-//     <BookDet
-//       key={d.id}
-//       empId={id}
-//       wps={wpDet}
-//       bookDay={d}
-//       noWP={empDet.curWorkPlans}
-//     />
-//   );
-// })}
 export default BookHead;
