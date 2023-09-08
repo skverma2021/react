@@ -45,8 +45,10 @@ function ToolBar() {
   );
   const renderBookingToolbar = () => (
     <div>
-      <Link to={`/booking/${user[0].id}/6/2023`}> bookings</Link>
+      <Link to={`/booking/${user[0].id}`}> bookings</Link>
       {` `}
+      {/* <Link to={`/booking/${user[0].id}/6/2023`}> bookings</Link>
+      {` `} */}
 
       <Link to='/' onClick={logOutUser}>
         {' '}

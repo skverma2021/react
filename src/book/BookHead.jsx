@@ -69,26 +69,28 @@ const BookHead = () => {
         </i>
       </div>
       {/* the entire sheet */}
-      <table style={{ marginTop: '10px' }}>
+      <table
+        style={{ marginTop: '10px', borderCollapse: 'collapse', width: '100%' }}
+      >
         <thead>
           <tr>
-            <th>✖️</th>
+            <th>day✖️job</th>
             {wpDet.map((t) => {
               return (
                 <th
                   key={t.wpId}
                   style={{ border: '1px solid', background: 'lightblue' }}
                 >
-                  {t.nameJob}
-                  <br />
-                  <i>{t.nameStage}</i>
-                  <br />
-                  {t.dtStart}
-                  <br />
-                  {t.dtEnd}
-                  <br />
-                  {t.wpId}
-                  <br />
+                  <small>
+                    {t.nameJob}
+                    <br />
+                    <i>{t.nameStage}</i>
+                    <br />
+                    {t.dtStart} to {t.dtEnd}
+                    <br />
+                    {t.wpId}
+                    <br />
+                  </small>
                 </th>
               );
             })}

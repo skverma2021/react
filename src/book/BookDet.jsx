@@ -76,15 +76,24 @@ const BookDet = ({ empId, bookDay }) => {
   return (
     <>
       <td style={{ border: '1px solid', background: 'lightblue' }}>
-        {bookDay.theDay}
+        <small>{bookDay.theDay}</small>
       </td>
       {bData.map((t, index) => {
         return (
-          <td key={index}>
+          <td
+            key={index}
+            style={{
+              margin: '0',
+              padding: '0',
+              textAlign: 'center',
+              border: '1px solid',
+            }}
+          >
             <input
               type='text'
               value={t.theBooking || ''}
               onChange={(e) => handleInputChange(index, e)}
+              style={{ border: 'none', padding: '0', width: '100%' }}
             />
           </td>
         );
@@ -92,7 +101,7 @@ const BookDet = ({ empId, bookDay }) => {
       <td
         style={{
           border: '1px solid',
-          background: 'lightblue',
+          textAlign: 'center',
         }}
       >
         <button onClick={handleUpdAdd}>🖍️</button>
