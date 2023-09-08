@@ -73,7 +73,25 @@ function ToolBar() {
         return renderHRToolbar();
       case 6:
         return renderBDToolbar();
-      case (1, 2):
+      case 1:
+        return renderBookingToolbar();
+      case 2:
+        return renderBookingToolbar();
+      case 3:
+        return renderBookingToolbar();
+      case 4:
+        return renderBookingToolbar();
+      case 7:
+        return renderBookingToolbar();
+      case 8:
+        return renderBookingToolbar();
+      case 9:
+        return renderBookingToolbar();
+      case 10:
+        return renderBookingToolbar();
+      case 11:
+        return renderBookingToolbar();
+      case 12:
         return renderBookingToolbar();
       default:
         return null; // Unknown department

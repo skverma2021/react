@@ -74,7 +74,7 @@ const columns = [
   },
   {
     field: 'id3',
-    headerName: 'PandT',
+    headerName: 'PT',
     width: 50,
     renderCell: (params) => <Link to={`./tp/${params.id}`}> ↗️</Link>,
   },

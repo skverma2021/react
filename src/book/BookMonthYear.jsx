@@ -18,8 +18,8 @@ const BookMonthYear = () => {
           display: 'flex',
           flexDirection: 'column',
           marginTop: '200px',
-          marginLeft: '400px',
-          marginRight: '400px',
+          marginLeft: '550px',
+          marginRight: '550px',
         }}
       >
         <h2 style={{ marginBottom: '50px' }}>Booking for the Month</h2>
@@ -63,7 +63,10 @@ const BookMonthYear = () => {
         </select>
 
         <div>
-          <Link to={`/booking/${id}/${theMonth}/${theYear}`}> bookings</Link>
+          <Link to={`/booking/${id}/${theMonth}/${theYear}`}>
+            {' '}
+            Log Hours Booked
+          </Link>
         </div>
       </div>
     </>

@@ -17,6 +17,7 @@ const UserState = (props) => {
       const res = await axios.get(
         `http://localhost:3000/api/emps/${theEMailId}/${thePass}`
       );
+      console.log(res.data);
       dispatch({ type: AUTH_USER, payLoad: res.data });
       // const theDeptt = res.data[0].curDeptt;
       // dispatch({ type: SET_MENU, payLoad: theDeptt });

@@ -37,7 +37,8 @@ const Auth = ({ setIsAuthenticated }) => {
       await getUser(theEmp.eMail, theEmp.pass);
       // navigate('/');
       setIsAuthenticated(true);
-      if (user.length !== 0) return <Home />;
+      // console.log(theEmp.eMail, theEmp.pass, user.length);
+      // if (user.length !== 0) return <Home />;
     } catch (error) {
       console.log(error);
     }
