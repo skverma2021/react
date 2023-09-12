@@ -3,14 +3,11 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const BookMonthYear = () => {
-  const [theMonth, setTheMonth] = useState(1);
-  const [theYear, setTheYear] = useState(2023);
+  // const [theMonth, setTheMonth] = useState(1);
+  // const [theYear, setTheYear] = useState(2023);
+  const [mtext, setMtext] = useState('');
   const { id } = useParams();
 
-  const openBookingSheet = () => {
-    console.log(id, theMonth, theYear);
-    return <Home />;
-  };
   return (
     <>
       <div
@@ -23,7 +20,7 @@ const BookMonthYear = () => {
         }}
       >
         <h2 style={{ marginBottom: '50px' }}>Booking for the Month</h2>
-        <label style={{ background: 'lightblue' }}>Month:</label>
+        {/* <label style={{ background: 'lightblue' }}>Month:</label>
         <select
           style={{ marginBottom: '50px' }}
           name='theMonth'
@@ -60,10 +57,26 @@ const BookMonthYear = () => {
           <option value={2023}>2023</option>
           <option value={2024}>2024</option>
           <option value={2025}>2025</option>
-        </select>
+        </select> */}
+
+        <input
+          type='month'
+          min='2022-01'
+          max='2025-12'
+          value={mtext}
+          onChange={(e) => {
+            return setMtext(e.target.value);
+          }}
+        />
 
         <div>
-          <Link to={`/booking/${id}/${theMonth}/${theYear}`}>
+          {/* <Link to={`/booking/${id}/${theMonth}/${theYear}`}> */}
+          <Link
+            to={`/booking/${id}/${mtext.substring(5, 7)}/${mtext.substring(
+              0,
+              4
+            )}`}
+          >
             {' '}
             Log Hours Booked
           </Link>

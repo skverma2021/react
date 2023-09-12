@@ -69,10 +69,6 @@ function ToolBar() {
     }
 
     switch (user[0].curDeptt) {
-      case 13:
-        return renderHRToolbar();
-      case 6:
-        return renderBDToolbar();
       case 1:
         return renderBookingToolbar();
       case 2:
@@ -81,6 +77,10 @@ function ToolBar() {
         return renderBookingToolbar();
       case 4:
         return renderBookingToolbar();
+      case 5:
+        return renderBookingToolbar();
+      case 6:
+        return renderBDToolbar();
       case 7:
         return renderBookingToolbar();
       case 8:
@@ -93,6 +93,8 @@ function ToolBar() {
         return renderBookingToolbar();
       case 12:
         return renderBookingToolbar();
+      case 13:
+        return renderHRToolbar();
       default:
         return null; // Unknown department
     }

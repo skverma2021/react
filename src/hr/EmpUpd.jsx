@@ -1,53 +1,16 @@
 import React from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import {
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Input,
-  Typography,
-  Button,
-} from '@mui/material';
+import moment from 'moment';
 
-import styled from '@emotion/styled';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// const Container = styled(FormGroup)`
-//   width: 50%;
-//   margin: 5% auto 0 25%;
-//   & > div {
-//     margin-top: 20px;
-//   }
-// `;
-const Container = styled(FormGroup)`
-  width: 50%;
-  margin: 5% auto 0 25%;
-  & > div {
-    margin-top: 20px;
-  }
-`;
-
-// const empRec = {
-//   uId: '',
-//   fName: '',
-//   mName: '',
-//   sName: '',
-//   title: '',
-//   dob: '',
-//   gender: '',
-//   addLine1: '',
-//   cityId: '',
-//   mobile: '',
-//   eMailId: '',
-//   passwd: '',
-// };
 const EmpUpd = () => {
   const [emp, setEmp] = useState({});
   const [cities, setCities] = useState([]);
   const [theCity, setTheCity] = useState('');
+  const [err, setErr] = useState('');
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -78,25 +41,6 @@ const EmpUpd = () => {
     fetchData();
   }, []);
 
-  // console.log(cities.length);
-
-  const cityOptions = useMemo(
-    () =>
-      cities.map((c) => {
-        if (!cities || cities.length === 0) {
-          return null; // Or some placeholder options if desired
-        }
-        return (
-          <MenuItem key={c.id} value={c.id}>
-            {c.cityName}
-          </MenuItem>
-        );
-      }),
-    [cities]
-  );
-
-  // console.log(cityOptions);
-
   const onValChange = (e) => {
     setEmp({ ...emp, [e.target.name]: e.target.value });
   };
@@ -109,172 +53,236 @@ const EmpUpd = () => {
       });
     } catch (error) {
       console.log(error);
+      setErr(error.message);
     }
   };
+  if (err) return <div>Error: {err}</div>;
   return (
-    <Container>
-      <Typography variant='h4'>Edit an Employee</Typography>
+    <div
+      style={{
+        marginTop: '100px',
+        marginLeft: '400px',
+        marginRight: '400px',
+        marginBottom: '100px',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '20%',
+      }}
+    >
+      <h4>Edit an Employee</h4>
+      <br />
+      <br />
 
-      <FormControl>
-        <InputLabel>Unique ID</InputLabel>
-        <Input
-          name='uId'
-          value={emp.uId || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.uId }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>First Name:</InputLabel>
-        <Input
-          name='fName'
-          value={emp.fName || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.fName }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Middle Name:</InputLabel>
-        <Input
-          name='mName'
-          value={emp.mName || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Surname:</InputLabel>
-        <Input
-          name='sName'
-          value={emp.sName || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.sName }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Title:</InputLabel>
-        <Input
+      <label>
+        <strong>Unique ID</strong>
+      </label>
+      <br />
+      <input
+        name='uId'
+        value={emp.uId || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>First Name:</strong>
+      </label>
+      <br />
+      <input
+        name='fName'
+        value={emp.fName || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>Middle Name:</strong>
+      </label>
+      <br />
+      <input
+        name='mName'
+        value={emp.mName || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>Surname:</strong>
+      </label>
+      <br />
+      <input
+        name='sName'
+        value={emp.sName || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>Title:</strong>
+      </label>
+      <br />
+      <div style={{ display: 'flex' }}>
+        <input
+          type='radio'
+          id='Mr'
           name='title'
-          value={emp.title}
+          value='Mr'
+          checked={emp.title == 'Mr'}
           onChange={(e) => {
             return onValChange(e);
           }}
-          // InputLabelProps={{ shrink: !!emp.title }}
         />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Date of Birth:</InputLabel>
-        <Input
-          name='dob'
-          value={emp.dob || ''}
+          <label for='Mr'>Mr</label>
+      </div>
+      <div style={{ display: 'flex' }}>
+        <input
+          type='radio'
+          id='Ms'
+          name='title'
+          value='Ms'
+          checked={emp.title == 'Ms'}
           onChange={(e) => {
             return onValChange(e);
           }}
-          InputLabelProps={{ shrink: !!emp.dob }}
         />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Gender:</InputLabel>
-        <Input
+          <label for='Ms'>Ms</label>
+      </div>
+      <br />
+
+      <label>
+        <strong>Date of Birth:</strong>
+        <br />
+      </label>
+      <input
+        name='dob'
+        type='date'
+        // value={emp.dob || ''}
+        value={moment(emp.dob).format('YYYY-MM-DD')}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>Gender:</strong>
+      </label>
+      <br />
+      <div style={{ display: 'flex' }}>
+        <input
+          type='radio'
+          id='male'
           name='gender'
-          value={emp.gender || ''}
+          value='M'
+          checked={emp.gender == 'M'}
           onChange={(e) => {
             return onValChange(e);
           }}
-          // InputLabelProps={{ shrink: !!emp.gender }}
         />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Address:</InputLabel>
-        <Input
-          name='addLine1'
-          value={emp.addLine1 || ''}
+          <label for='male'>Male</label>
+      </div>
+      <div style={{ display: 'flex' }}>
+        <input
+          type='radio'
+          id='female'
+          name='gender'
+          value='F'
+          checked={emp.gender == 'F'}
           onChange={(e) => {
             return onValChange(e);
           }}
-          // InputLabelProps={{ shrink: !!emp.addLine1 }}
         />
-      </FormControl>
-      <FormControl fullWidth>
-        {/* <InputLabel id='demo-simple-select-label'>City</InputLabel>
-        <Select
-          name='cityId'
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={theCity}
-          label='City'
-          onChange={(e) => setTheCity(e.target.value)}
-        >
+          <label for='female'>Female</label>
+      </div>
+      <br />
 
-          <MenuItem>""</MenuItem>
-          {cityOptions}
+      <label>
+        <strong>Address:</strong>
+      </label>
+      <br />
+      <input
+        name='addLine1'
+        value={emp.addLine1 || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
 
-        </Select> */}
-        <label>City:</label>
-        <select
-          name='cityId'
-          id='cityId'
-          value={theCity || ''}
-          onChange={(e) => {
-            return setTheCity(e.target.value);
-          }}
-        >
-          {/* <option value=''>Select Client</option> */}
-          {cities.map((c) => {
-            return (
-              <option key={c.id} value={c.id}>
-                {c.cityName}
-              </option>
-            );
-          })}
-        </select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>Mobile:</InputLabel>
-        <Input
-          name='mobile'
-          value={emp.mobile || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.mobile }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>eMail ID:</InputLabel>
-        <Input
-          name='eMailId'
-          value={emp.eMailId || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.eMailId }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Password:</InputLabel>
-        <Input
-          name='passwd'
-          value={emp.passwd || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!emp.passwd }}
-        />
-      </FormControl>
-      <FormControl>
-        <Button variant='contained' onClick={updEmpData}>
-          Update
-        </Button>
-      </FormControl>
-    </Container>
+      <label>
+        <strong>City:</strong>
+      </label>
+      <br />
+      <select
+        name='cityId'
+        id='cityId'
+        value={theCity || ''}
+        onChange={(e) => {
+          return setTheCity(e.target.value);
+        }}
+      >
+        {cities.map((c) => {
+          return (
+            <option key={c.id} value={c.id}>
+              {c.cityName}
+            </option>
+          );
+        })}
+      </select>
+      <br />
+
+      <label>
+        <strong>Mobile:</strong>
+      </label>
+      <br />
+      <input
+        name='mobile'
+        type='tel'
+        value={emp.mobile || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>eMail ID:</strong>
+      </label>
+      <br />
+      <input
+        name='eMailId'
+        type='email'
+        value={emp.eMailId || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <label>
+        <strong>Password:</strong>
+      </label>
+      <br />
+      <input
+        name='passwd'
+        type='password'
+        value={emp.passwd || ''}
+        onChange={(e) => {
+          return onValChange(e);
+        }}
+      />
+      <br />
+
+      <button onClick={updEmpData}>Update</button>
+    </div>
   );
 };
 

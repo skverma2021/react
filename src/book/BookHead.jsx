@@ -74,7 +74,9 @@ const BookHead = () => {
       >
         <thead>
           <tr>
-            <th>day✖️job</th>
+            <th style={{ background: 'lightgray', border: '1px solid' }}>
+              day✖️job
+            </th>
             {wpDet.map((t) => {
               return (
                 <th
@@ -94,7 +96,7 @@ const BookHead = () => {
                 </th>
               );
             })}
-            <th style={{ border: '1px solid', background: 'lightblue' }}>
+            <th style={{ border: '1px solid', background: 'lightgray' }}>
               <strong>save</strong>
             </th>
           </tr>
