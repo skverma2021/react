@@ -2,16 +2,26 @@ import React from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-
 import { useNavigate, useParams } from 'react-router-dom';
+import Spinner from '../home/Spinner';
+
+// @@ Thinking about UI declaratively
+
+// 1. Identify your component’s different visual states
+// 2. Determine what triggers those state changes
+// 3. Represent the state in memory using useState
+// 4. Remove any non-essential state variables
+// 5. Connect the event handlers to set the state
 
 const EmpUpd = () => {
   const [emp, setEmp] = useState({});
   const [cities, setCities] = useState([]);
   const [theCity, setTheCity] = useState('');
   const [err, setErr] = useState('');
+  const [formTouched, setFormTouched] = useState(false);
+  const [status, setStatus] = useState('typing');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { id } = useParams();
   useEffect(() => {
@@ -21,6 +31,7 @@ const EmpUpd = () => {
         setEmp(res.data[0]);
         setTheCity(res.data[0].cityId);
       } catch (error) {
+        setErr('error retrieving employee data');
         console.log(error);
       }
     };
@@ -35,6 +46,7 @@ const EmpUpd = () => {
 
         // setEmp({...emp, cityId:});
       } catch (error) {
+        setErr('error retrieving cities');
         console.log(error);
       }
     };
@@ -43,26 +55,30 @@ const EmpUpd = () => {
 
   const onValChange = (e) => {
     setEmp({ ...emp, [e.target.name]: e.target.value });
+    setFormTouched(true);
   };
 
   const updEmpData = async (event) => {
+    setStatus('busy');
     event.preventDefault();
     try {
       await axios.put(`http://localhost:3000/api/emps/${id}`, {
         ...emp,
         cityId: theCity,
       });
+      setStatus('success');
     } catch (error) {
       console.log(error);
-      setErr(error.message);
+      setErr('The Update failed');
     }
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   alert(`The name you entered was: ${name}`)
-  // }
-  if (err) return <div>Error: {err}</div>;
+  if (err) return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
+
+  if (status === 'success')
+    return <h1 style={{ color: 'blue' }}>Record updated successfully !</h1>;
+  if (status === 'busy') return <Spinner />;
+
   return (
     <div
       style={{
@@ -103,6 +119,7 @@ const EmpUpd = () => {
                 <input
                   name='fName'
                   minLength={3}
+                  required
                   value={emp.fName || ''}
                   onChange={(e) => {
                     return onValChange(e);
@@ -311,7 +328,7 @@ const EmpUpd = () => {
         </table>
         <br />
 
-        <input type='submit' />
+        <input type='submit' disabled={formTouched == false} />
       </form>
 
       {/* <button onClick={updEmpData}>Update</button> */}
