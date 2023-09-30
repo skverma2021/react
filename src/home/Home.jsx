@@ -11,9 +11,9 @@ const Home = () => {
           src={HomeImage}
           alt='Consultancy job management'
           width='100%/'
-          height='80%'
+          height='100%'
         />
-        <Box
+        {/* <Box
           width='100%'
           height='20%'
           display={'flex'}
@@ -26,7 +26,7 @@ const Home = () => {
             <Button variant='outlined'>Most High Value Job</Button>
             <Button variant='contained'>Most Valued Client</Button>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );

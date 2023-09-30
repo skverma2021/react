@@ -1,7 +1,6 @@
 import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './book.css';
 
 const BookDet = ({ empId, bookDay }) => {
   const [bData, setBData] = useState([]);
@@ -16,7 +15,6 @@ const BookDet = ({ empId, bookDay }) => {
         `http://localhost:3000/api/booking/${empId}/${bookDay.id}`
       );
       setBData(res.data);
-      //   console.log(res.data[0]);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +30,6 @@ const BookDet = ({ empId, bookDay }) => {
   };
 
   const handleUpdAdd = () => {
-    // console.log('Hi');
     bData.map((t) => {
       if (t.toUpd > 0) {
         //update
@@ -53,8 +50,6 @@ const BookDet = ({ empId, bookDay }) => {
     };
     try {
       const res = await axios.put(`http://localhost:3000/api/booking/`, rec);
-      // console.log(rec);
-      // console.log('Hi here!');
     } catch (error) {
       console.log(error);
     }

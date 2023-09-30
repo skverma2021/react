@@ -62,7 +62,18 @@ const EmpUpd = () => {
     setStatus('busy');
     event.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/api/emps/${id}`, {
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('token');
+
+      // Create an Axios instance with default headers including the token
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3000', // Your API base URL
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Set the token in the 'Authorization' header
+        },
+      });
+      await axiosInstance.put(`/api/emps/${id}`, {
         ...emp,
         cityId: theCity,
       });

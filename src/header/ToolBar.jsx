@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
-import UserContext from '../context/appUser/UserContext';
-import { AppBar, Tab, Tabs, Toolbar } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
 import WorkHistorySharpIcon from '@mui/icons-material/WorkHistorySharp';
 import { Link } from 'react-router-dom';
 
-function ToolBar() {
-  const userContext = useContext(UserContext);
-  const { user, logOutUser } = userContext;
+function ToolBar({ setIsAuthenticated }) {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    setUserData(decoded);
+  }, []);
+
+  const logOutUser = () => {
+    localStorage.clear();
+    setIsAuthenticated(false);
+  };
 
   const renderHRToolbar = () => (
     <div>
@@ -18,8 +27,6 @@ function ToolBar() {
       {` `}
       <Link to='/hr/posting'> Postings</Link>
       {` `}
-      {/* <Link to='/'> Logout</Link> */}
-      {/* <a href={`/`}>LogOut</a> */}
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout
@@ -33,10 +40,6 @@ function ToolBar() {
       {` `}
       <Link to='/bd/jobs/add'> addJobs</Link>
       {` `}
-      {/* <Link to='/hr/posting'> Postings</Link> */}
-      {` `}
-      {/* <Link to='/'> Logout</Link> */}
-      {/* <a href={`/`}>LogOut</a> */}
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout
@@ -45,11 +48,8 @@ function ToolBar() {
   );
   const renderBookingToolbar = () => (
     <div>
-      <Link to={`/booking/${user[0].id}`}> bookings</Link>
+      <Link to={`/booking/${userData.eID}`}> bookings</Link>
       {` `}
-      {/* <Link to={`/booking/${user[0].id}/6/2023`}> bookings</Link>
-      {` `} */}
-
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout
@@ -58,17 +58,16 @@ function ToolBar() {
   );
   const defaultToolbar = () => (
     <div>
-      {/* <a href={`/auth`}>Auth</a> */}
       <a href={`/`}>Auth</a>
     </div>
   );
 
   const renderToolbar = () => {
-    if (!user[0]) {
-      return defaultToolbar(); // No user data, render nothing
+    if (typeof userData == 'undefined') {
+      return defaultToolbar(); // No user data, render  nothing
     }
 
-    switch (user[0].curDeptt) {
+    switch (userData.eDepttID) {
       case 1:
         return renderBookingToolbar();
       case 2:
@@ -102,12 +101,33 @@ function ToolBar() {
 
   return (
     <>
-      <AppBar sx={{ bgcolor: 'transparent', position: 'sticky' }}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <WorkHistorySharpIcon sx={{ color: 'black' }} />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          backgroundColor: 'lightgray',
+        }}
+      >
+        <div style={{ display: 'flex', marginTop: '10px' }}>
+          <div>
+            <WorkHistorySharpIcon sx={{ color: 'black' }} />
+          </div>
+          <div style={{ marginLeft: '10px' }}>
+            <strong>Consultancy Jobs - MIS</strong>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div>{renderToolbar()}</div>
-        </Toolbar>
-      </AppBar>
+          <div>
+            <small>
+              Welcome:
+              <strong>
+                <i>{userData.eName}</i>
+              </strong>
+            </small>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

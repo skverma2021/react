@@ -1,106 +1,108 @@
-import React, { useState, useContext } from 'react';
-import UserContext from '../context/appUser/UserContext';
-import {
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Input,
-  Typography,
-  Button,
-} from '@mui/material';
-
-import styled from '@emotion/styled';
-import Home from '../home/Home';
-
-const Container = styled(FormGroup)`
-  width: 50%;
-  margin: 5% auto 0 25%;
-  & > div {
-    margin-top: 20px;
-  }
-`;
+import React, { useState } from 'react';
+import axios from 'axios';
+import WorkHistorySharpIcon from '@mui/icons-material/WorkHistorySharp';
 
 const Auth = ({ setIsAuthenticated }) => {
-  // console.log(setIsAuthenticated);
-  const userContext = useContext(UserContext);
-  const { user, getUser } = userContext;
-
   const [theEmp, setTheEmp] = useState({ eMail: '', pass: '' });
 
   const onValChange = (e) => {
     setTheEmp({ ...theEmp, [e.target.name]: e.target.value });
   };
 
-  const validateEmp = async () => {
-    console.log(theEmp.eMail, theEmp.pass);
+  const validateEmp = async (event) => {
+    event.preventDefault();
     try {
-      await getUser(theEmp.eMail, theEmp.pass);
-      // navigate('/');
-      if (user) {
+      const res = await axios.get(
+        `http://localhost:3000/api/emps/${theEmp.eMail}/${theEmp.pass}`
+      );
+      if (res.data.length > 0) {
+        localStorage.setItem('token', res.data[0].token);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
       }
-      // console.log(theEmp.eMail, theEmp.pass, user.length);
-      // if (user.length !== 0) return <Home />;
     } catch (error) {
       console.log(error);
     }
   };
-  // console.log(user.length);
-  //   id	name
-  // 1	Electrical Engineering
-  // 2	Mechanical Engineering
-  // 3	Civil Engineering
-  // 4	Electronics and Instrumentation
-  // 5	Information Technology
-  // 6	Business Development Division
-  // 7	Project Planning Division
-  // 8	Project Monitoring Division
-  // 9	Contracts
-  // 10	Reaserch and Development
-  // 11	Documentation
-  // 12	Project Implementation
-  // 13	Human Resource
-  // 14	Finance
-  // const validateEmp = () => {
-  //   console.log(theEmp.eMail, theEmp.pass);
-  //   getUser(theEmp.eMail, theEmp.pass);
-  //   console.log(user);
-  // };
 
   return (
-    <Container>
-      <Typography variant='h4'>Login</Typography>
-
-      <FormControl>
-        <InputLabel>E-Mail Id:</InputLabel>
-        <Input
-          name='eMail'
-          value={theEmp.eMail}
-          onChange={(e) => {
-            return onValChange(e);
+    <>
+      <header>
+        <div
+          style={{
+            display: 'flex',
+            marginTop: '10px',
+            backgroundColor: 'lightgray',
           }}
-        />
-      </FormControl>
-
-      <FormControl>
-        <InputLabel>Password:</InputLabel>
-        <Input
-          name='pass'
-          value={theEmp.pass}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-
-      <FormControl>
-        <Button variant='contained' onClick={validateEmp}>
-          Submit
-        </Button>
-      </FormControl>
-    </Container>
+        >
+          <div>
+            <WorkHistorySharpIcon sx={{ color: 'black' }} />
+          </div>
+          <div style={{ marginLeft: '10px' }}>
+            <strong>Consultancy Jobs - MIS</strong>
+          </div>
+        </div>
+      </header>
+      <div
+        style={{
+          alignItems: 'center',
+          width: '700px',
+          height: '500px',
+          marginTop: '100px',
+          marginLeft: '350px',
+          background: 'lightBlue',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+      >
+        <h2>Login</h2>
+        <div>
+          <form onSubmit={validateEmp}>
+            <table style={{ lineHeight: '75px' }}>
+              <tbody>
+                <tr>
+                  <td>
+                    <label>E-Mail Id:</label>
+                  </td>
+                  <td>
+                    <input
+                      name='eMail'
+                      value={theEmp.eMail}
+                      onChange={(e) => {
+                        return onValChange(e);
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>Password:</label>
+                  </td>
+                  <td>
+                    <input
+                      name='pass'
+                      value={theEmp.pass}
+                      onChange={(e) => {
+                        return onValChange(e);
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type='submit' />
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 

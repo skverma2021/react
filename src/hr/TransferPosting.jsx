@@ -1,22 +1,14 @@
 import React from 'react';
-import Posting from './Posting';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Posting from './Posting';
 import Transfer from './Transfer';
 import PostingTrail from './PostingTrail';
 import TransferTrail from './TransferTrail';
-import TPContext from '../context/tp/TPcontext';
 
 const TransferPosting = () => {
   const [empDet, setEmpDet] = useState({});
-  // const tpContext = useContext(TPContext);
-
-  // const [updEmpDesigId, setUpdEmpDesigId] = useState('');
-  // const [updEmpDesig, setUpdEmpDesig] = useState('');
-  // const [updEmpDesigDt, setUpdEmpDesigDt] = useState('');
-
-  // tpContext.resetTP();
 
   const { id } = useParams();
   useEffect(() => {
@@ -29,7 +21,6 @@ const TransferPosting = () => {
         `http://localhost:3000/api/empBookHead/${id}`
       );
       setEmpDet(res.data[0]);
-      // console.log(res.data[0]);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +62,6 @@ const TransferPosting = () => {
         </div>
         <div style={{ display: 'flex' }}>
           {/* Postings/Promotions */}
-
           <div
             style={{
               display: 'flex',
@@ -88,8 +78,8 @@ const TransferPosting = () => {
               <Posting theEmp={id} />
             </div>
           </div>
-          {/* Transfers */}
 
+          {/* Transfers */}
           <div
             style={{
               display: 'flex',

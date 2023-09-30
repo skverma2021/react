@@ -35,6 +35,8 @@ const PostingTrail = ({ theEmp }) => {
       const res = await axios.delete(
         `http://localhost:3000/api/designation/${theEmpDesigId}/empDesig`
       );
+      tpContext.resetTP();
+      tpContext.updDesigRec();
     } catch (error) {
       console.log(error);
     }

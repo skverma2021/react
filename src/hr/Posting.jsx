@@ -39,6 +39,7 @@ const Posting = ({ theEmp }) => {
 
   const saveRec = async () => {
     //theId:'', theDesigId:'', theFromDt:''
+    if (theDesig == '') return;
     try {
       if (tpContext.tpState.edgId) {
         console.log(theEmp, theDesig, fromDt);
@@ -83,10 +84,11 @@ const Posting = ({ theEmp }) => {
             value={theDesig || ''}
             onChange={(e) => setTheDesig(e.target.value)}
           >
-            {desigs.map((d) => {
+            <option value='0'>Select Designation</option>
+            {desigs.map((dg) => {
               return (
-                <option key={d.theDesigId} value={d.theDesigId}>
-                  {d.theDescription}
+                <option key={dg.theDesigId} value={dg.theDesigId}>
+                  {dg.theDescription}
                 </option>
               );
             })}

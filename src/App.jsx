@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <header>
-        <ToolBar />
+        {isAuthenticated && <ToolBar setIsAuthenticated={setIsAuthenticated} />}
       </header>
       <Routes>
         <Route

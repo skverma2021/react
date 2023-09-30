@@ -50,9 +50,10 @@ const Transfer = ({ theEmp }) => {
   // };
   const saveRec = async () => {
     //theId:'', theDesigId:'', theFromDt:''
+    // console.log('Hi-1', theEmp, theDeptt, fromDt);
+    if (theDeptt == '') return;
     try {
       if (tpContext.tpState.edpId) {
-        // console.log(theEmp, theDesig, fromDt);
         await axios.put(
           `http://localhost:3000/api/department/${tpContext.tpState.edpId}/empDeptt`,
           {
@@ -64,6 +65,7 @@ const Transfer = ({ theEmp }) => {
         tpContext.resetTP();
         tpContext.updDepttRec();
       } else {
+        // console.log('Hi-2', theEmp, theDeptt, fromDt);
         await axios.post('http://localhost:3000/api/department/transfer', {
           empId: theEmp,
           depttId: theDeptt,
@@ -93,10 +95,11 @@ const Transfer = ({ theEmp }) => {
             value={theDeptt || ''}
             onChange={(e) => setTheDeptt(e.target.value)}
           >
-            {deptts.map((d) => {
+            <option value='0'>Select Deptt</option>
+            {deptts.map((dp) => {
               return (
-                <option key={d.depttId} value={d.depttId}>
-                  {d.depttName}
+                <option key={dp.depttId} value={dp.depttId}>
+                  {dp.depttName}
                 </option>
               );
             })}

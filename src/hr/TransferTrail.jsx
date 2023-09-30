@@ -29,6 +29,8 @@ const TransferTrail = ({ theEmp }) => {
       const res = await axios.delete(
         `http://localhost:3000/api/department/${theEmpDepttId}/empDeptt`
       );
+      tpContext.resetTP();
+      tpContext.updDepttRec();
     } catch (error) {
       console.log(error);
     }
