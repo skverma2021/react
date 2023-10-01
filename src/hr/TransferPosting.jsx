@@ -53,9 +53,9 @@ const TransferPosting = () => {
             }}
           >
             <i>
-              <h3>
-                {empDet.theDeptt} {empDet.theDiscp}
-              </h3>
+              <h4>
+                Deptt:[{empDet.theDeptt}] Discipline: [{empDet.theDiscp}]
+              </h4>
               [{empDet.theHrRate}Rs/hr]
             </i>
           </div>

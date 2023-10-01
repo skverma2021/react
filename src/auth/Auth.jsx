@@ -46,20 +46,27 @@ const Auth = ({ setIsAuthenticated }) => {
       </header>
       <div
         style={{
-          alignItems: 'center',
-          width: '700px',
-          height: '500px',
-          marginTop: '100px',
-          marginLeft: '350px',
+          background: '#fff',
+          padding: '15px 25px',
+          color: '#333',
+          // alignItems: 'center',
+          width: '100%',
+          height: '100vh',
+          // marginTop: '100px',
+          // marginLeft: '350px',
           background: 'lightBlue',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignContent: 'center',
+          // display: 'flex',
+          // flexDirection: 'column',
+          // justifyContent: 'center',
+          // alignContent: 'center',
         }}
       >
-        <h2>Login</h2>
-        <div>
+        <h2 style={{ width: '100%', textAlign: 'center', marginTop: '100px' }}>
+          Login
+        </h2>
+        <div
+          style={{ margin: '30px auto', maxWidth: '300px', padding: '20px' }}
+        >
           <form onSubmit={validateEmp}>
             <table style={{ lineHeight: '75px' }}>
               <tbody>
@@ -69,6 +76,12 @@ const Auth = ({ setIsAuthenticated }) => {
                   </td>
                   <td>
                     <input
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '#ddd 1px solid',
+                        bordeRadius: '5px',
+                      }}
                       name='eMail'
                       value={theEmp.eMail}
                       onChange={(e) => {
@@ -83,6 +96,13 @@ const Auth = ({ setIsAuthenticated }) => {
                   </td>
                   <td>
                     <input
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '#ddd 1px solid',
+                        bordeRadius: '5px',
+                      }}
+                      type='password'
                       name='pass'
                       value={theEmp.pass}
                       onChange={(e) => {
@@ -93,7 +113,18 @@ const Auth = ({ setIsAuthenticated }) => {
                 </tr>
                 <tr>
                   <td>
-                    <input type='submit' />
+                    <input
+                      type='submit'
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '10px',
+                        marginTop: '20px',
+                        background: '#49c1a2',
+                        color: '#fff',
+                        cursor: 'pointer',
+                      }}
+                    />
                   </td>
                   <td></td>
                 </tr>
