@@ -1,40 +1,18 @@
 import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Input,
-  Typography,
-  Button,
-} from '@mui/material';
+import Spinner from '../home/Spinner';
 
-import styled from '@emotion/styled';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { useNavigate, useParams } from 'react-router-dom';
-
-const Container = styled(FormGroup)`
-  width: 50%;
-  margin: 5% auto 0 25%;
-  & > div {
-    margin-top: 20px;
-  }
-`;
-
-// id	int identity
-// description	varchar(50)
-// clientId	int
-// ordDateStart	date
-// ordDateEnd	date
-// ordValue	money
+import { useParams } from 'react-router-dom';
 
 function JobUpd() {
   const [job, setJob] = useState({});
   const [clients, setClients] = useState([]);
   const [theClient, setTheClient] = useState('');
-  const navigate = useNavigate();
+
+  const [err, setErr] = useState('');
+  const [formTouched, setFormTouched] = useState(false);
+  const [status, setStatus] = useState('typing');
 
   const { id } = useParams();
   useEffect(() => {
@@ -64,127 +42,165 @@ function JobUpd() {
     fetchData();
   }, []);
 
-  // console.log(cities.length);
-
-  const clientOptions = useMemo(
-    () =>
-      clients.map((c) => {
-        if (!clients || clients.length === 0) {
-          return null; // Or some placeholder options if desired
-        }
-        return (
-          <MenuItem key={c.id} value={c.id}>
-            {c.shortName}
-          </MenuItem>
-        );
-      }),
-    [clients]
-  );
-
-  // console.log(cityOptions);
-
   const onValChange = (e) => {
     setJob({ ...job, [e.target.name]: e.target.value });
+    setFormTouched(true);
   };
 
-  const updJobData = async () => {
+  const updJobData = async (event) => {
+    // const dateParts = job.ordDateStart.split('/');
+    // const formattedDate = new Date(
+    //   dateParts[0],
+    //   dateParts[1] - 1,
+    //   dateParts[2]
+    // );
+    // const formattedDateString = formattedDate.toISOString();
+    // console.log(formattedDateString);
+    // setJob({ ...job, [ordDateStart]: formattedDateString });
+
+    // const dateParts1 = job.ordDateEnd.split('/');
+    // const formattedDate1 = new Date(
+    //   dateParts1[0],
+    //   dateParts1[1] - 1,
+    //   dateParts1[2]
+    // );
+    // const formattedDateString1 = formattedDate1.toISOString();
+    // setJob({ ...job, [ordDateEnd]: formattedDateString1 });
+
+    event.preventDefault();
     try {
       await axios.put(`http://localhost:3000/api/jobs/${id}`, {
         ...job,
         clientId: theClient,
       });
+      setStatus('success');
     } catch (error) {
       console.log(error);
+      setErr('Record could not be updated');
     }
   };
+
+  if (err) return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
+
+  if (status === 'success')
+    return <h1 style={{ color: 'blue' }}>Record updated successfully !</h1>;
+  if (status === 'busy') return <Spinner />;
+
   return (
-    <Container>
-      <Typography variant='h4'>Edit a Job</Typography>
-
-      <FormControl>
-        <InputLabel>JobDescription:</InputLabel>
-        <Input
-          name='description'
-          value={job.description || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!job.description }}
-        />
-      </FormControl>
-      <FormControl fullWidth>
-        {/* <InputLabel id='demo-simple-select-label'>Client</InputLabel> */}
-
-        {/* <Select
-          name='clientId'
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={theClient || ''}
-          label='Client'
-          onChange={(e) => setTheClient(e.target.value)}
-        >
-          <MenuItem>""</MenuItem>
-          {clientOptions}
-        </Select> */}
-        <label>Client:</label>
-        <select
-          name='clientId'
-          id='clientId'
-          value={theClient || ''}
-          onChange={(e) => {
-            return setTheClient(e.target.value);
-          }}
-        >
-          {/* <option value=''>Select Client</option> */}
-          {clients.map((c) => {
-            return (
-              <option key={c.id} value={c.id}>
-                {c.shortName}
-              </option>
-            );
-          })}
-        </select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>StartDate:</InputLabel>
-        <Input
-          name='ordDateStart'
-          value={job.ordDateStart || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!job.ordDateStart }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>EndDate:</InputLabel>
-        <Input
-          name='ordDateEnd'
-          value={job.ordDateEnd || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!job.ordDateEnd }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>OrderValue:</InputLabel>
-        <Input
-          name='ordValue'
-          value={job.ordValue || ''}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          // InputLabelProps={{ shrink: !!job.ordValue }}
-        />
-      </FormControl>
-
-      <FormControl>
-        <Button variant='contained' onClick={updJobData}>
-          Update
-        </Button>
-      </FormControl>
-    </Container>
+    <div
+      style={{
+        width: '100%',
+        height: '100vh',
+        border: '1px solid black',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <h2>Edit a Job</h2>
+      <form onSubmit={updJobData}>
+        <table style={{ lineHeight: '3' }}>
+          <tbody>
+            <tr>
+              <td>
+                <label>JobDescription:</label>
+              </td>
+              <td>
+                <input
+                  name='description'
+                  size='50'
+                  value={job.description || ''}
+                  onChange={(e) => {
+                    return onValChange(e);
+                  }}
+                  // labelProps={{ shrink: !!job.description }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Client:</label>
+              </td>
+              <td>
+                <select
+                  name='clientId'
+                  id='clientId'
+                  value={theClient || ''}
+                  onChange={(e) => {
+                    return setTheClient(e.target.value);
+                  }}
+                >
+                  {/* <option value=''>Select Client</option> */}
+                  {clients.map((c) => {
+                    return (
+                      <option key={c.id} value={c.id}>
+                        {c.shortName}
+                      </option>
+                    );
+                  })}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>StartDate:</label>
+              </td>
+              <td>
+                <input
+                  name='ordDateStart'
+                  type='date'
+                  value={job.ordDateStart || ''}
+                  onChange={(e) => {
+                    return onValChange(e);
+                  }}
+                  // labelProps={{ shrink: !!job.ordDateStart }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>EndDate:</label>
+              </td>
+              <td>
+                <input
+                  name='ordDateEnd'
+                  type='date'
+                  value={job.ordDateEnd || ''}
+                  onChange={(e) => {
+                    return onValChange(e);
+                  }}
+                  // labelProps={{ shrink: !!job.ordDateEnd }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>OrderValue:</label>
+              </td>
+              <td>
+                <input
+                  name='ordValue'
+                  value={job.ordValue || ''}
+                  onChange={(e) => {
+                    return onValChange(e);
+                  }}
+                  // labelProps={{ shrink: !!job.ordValue }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type='submit' disabled={formTouched == false}>
+                  Update
+                </button>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
   );
 }
 

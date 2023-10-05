@@ -8,7 +8,23 @@ import AddOneStage from './AddOneStage';
 
 function JobExPlanAdd() {
   const [stages, setStages] = useState([]);
+  const [theJob, setTheJob] = useState({});
   const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/jobClient/${id}`
+        );
+        setTheJob(res.data[0]);
+        // console.log(theJob);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     getAllStages();
@@ -25,12 +41,19 @@ function JobExPlanAdd() {
   };
   return (
     <>
+      <h2>{theJob.jobDes}</h2>
+
+      <div style={{ display: 'flex' }}>
+        <h4>{theJob.jobClient}</h4>,<h4>Rs{theJob.jobValue} , </h4>
+        <h4>[{theJob.jobStart} to </h4> <h4>{theJob.jobEnd}]</h4>
+      </div>
+
       {/* <div id='spreadSheet'> */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          backgroundColor: 'primary.light',
+          backgroundColor: 'lightBlue',
           marginTop: '20px',
           marginBottom: '20px',
           paddingTop: '20px',

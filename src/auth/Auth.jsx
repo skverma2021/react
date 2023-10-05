@@ -54,7 +54,7 @@ const Auth = ({ setIsAuthenticated }) => {
           height: '100vh',
           // marginTop: '100px',
           // marginLeft: '350px',
-          background: 'lightBlue',
+          // background: 'lightBlue',
           // display: 'flex',
           // flexDirection: 'column',
           // justifyContent: 'center',

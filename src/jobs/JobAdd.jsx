@@ -1,27 +1,8 @@
 import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Input,
-  Typography,
-  Button,
-} from '@mui/material';
+import Spinner from '../home/Spinner';
 
-import styled from '@emotion/styled';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { useNavigate } from 'react-router-dom';
-
-const Container = styled(FormGroup)`
-  width: 50%;
-  margin: 5% auto 0 25%;
-  & > div {
-    margin-top: 20px;
-  }
-`;
 // id	int identity
 // description	varchar(50)
 // clientId	int
@@ -39,7 +20,10 @@ const jobRec = {
 const JobAdd = () => {
   const [job, setJob] = useState(jobRec);
   const [clients, setClients] = useState([]);
-  const navigate = useNavigate();
+
+  const [err, setErr] = useState('');
+  const [formTouched, setFormTouched] = useState(false);
+  const [status, setStatus] = useState('typing');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,93 +38,143 @@ const JobAdd = () => {
   }, []);
 
   console.log(clients.length);
-  const clientData = useMemo(() => clients, [clients]);
 
   const onValChange = (e) => {
     setJob({ ...job, [e.target.name]: e.target.value });
+    setFormTouched(true);
   };
 
-  const postJobData = async () => {
+  const postJobData = async (event) => {
+    setStatus('busy');
+    event.preventDefault();
     try {
       await axios.post('http://localhost:3000/api/jobs', job);
-      console.log(`Success: ${job.id} created`);
-      navigate('/');
+      console.log(`Success: ${job.description} created`);
+      setStatus('success');
     } catch (error) {
       console.log(error);
+      setErr('Record could not be added');
     }
   };
+
+  if (err) return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
+
+  if (status === 'success')
+    return <h1 style={{ color: 'blue' }}>Record updated successfully !</h1>;
+  if (status === 'busy') return <Spinner />;
+
   return (
-    <Container>
-      <Typography variant='h4'>Add a Job</Typography>
-
-      <FormControl>
-        <InputLabel>Description:</InputLabel>
-        <Input
-          name='description'
-          value={job.description}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-
-      <FormControl>
-        <InputLabel>Client:</InputLabel>
-        <Select
-          name='clientId'
-          labelId='demo-simple-select-standard-label'
-          id='demo-simple-select-standard'
-          value={job.clientId}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-          label='Client'
-        >
-          {clients.map((c) => {
-            return (
-              <MenuItem key={c.id} value={c.id}>
-                {c.shortName}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>StartDate:</InputLabel>
-        <Input
-          name='ordDateStart'
-          value={job.ordDateStart}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>EndDate:</InputLabel>
-        <Input
-          name='ordDateEnd'
-          value={job.ordDateEnd}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel>OrderValue:</InputLabel>
-        <Input
-          name='ordValue'
-          value={job.ordValue}
-          onChange={(e) => {
-            return onValChange(e);
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <Button variant='contained' onClick={postJobData}>
-          Add
-        </Button>
-      </FormControl>
-    </Container>
+    <>
+      <div
+        style={{
+          width: '100%',
+          height: '100vh',
+          border: '1px solid black',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <h2>Add a Job</h2>
+        <form onSubmit={postJobData}>
+          <table style={{ lineHeight: '3' }}>
+            <tbody>
+              <tr>
+                <td>
+                  <label>Description:</label>
+                </td>
+                <td>
+                  <input
+                    name='description'
+                    size={'60'}
+                    value={job.description}
+                    onChange={(e) => {
+                      return onValChange(e);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Client:</label>
+                </td>
+                <td>
+                  <select
+                    name='clientId'
+                    value={job.clientId}
+                    onChange={(e) => {
+                      return onValChange(e);
+                    }}
+                    label='Client'
+                  >
+                    {clients.map((c) => {
+                      return (
+                        <option key={c.id} value={c.id}>
+                          {c.shortName}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>StartDate:</label>
+                </td>
+                <td>
+                  <input
+                    name='ordDateStart'
+                    type='date'
+                    value={job.ordDateStart}
+                    onChange={(e) => {
+                      return onValChange(e);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>EndDate:</label>
+                </td>
+                <td>
+                  <input
+                    name='ordDateEnd'
+                    type='date'
+                    value={job.ordDateEnd}
+                    onChange={(e) => {
+                      return onValChange(e);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>OrderValue:</label>
+                </td>
+                <td>
+                  <input
+                    name='ordValue'
+                    value={job.ordValue}
+                    onChange={(e) => {
+                      return onValChange(e);
+                    }}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button type='submit' disabled={formTouched == false}>
+                    Add
+                  </button>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </>
   );
 };
 export default JobAdd;

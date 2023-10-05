@@ -18,20 +18,16 @@ function ToolBar({ setIsAuthenticated }) {
   };
 
   const renderHRToolbar = () => (
-    <div>
-      <Link to='/hr/emp'> allEmps</Link>
+    <>
+      <Link to='/hr/emp'> AllEmp</Link>
       {` `}
-      <Link to='/hr/emp/add'> newEmp</Link>
-      {` `}
-      <Link to='/hr/transfer'> Transfers</Link>
-      {` `}
-      <Link to='/hr/posting'> Postings</Link>
+      <Link to='/hr/emp/add'> NewEmp</Link>
       {` `}
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout
       </Link>
-    </div>
+    </>
   );
 
   const renderBDToolbar = () => (
@@ -117,8 +113,8 @@ function ToolBar({ setIsAuthenticated }) {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div>{renderToolbar()}</div>
-          <div>
+          <div style={{ textAlign: 'right' }}>{renderToolbar()}</div>
+          <div style={{ textAlign: 'right' }}>
             <small>
               Welcome:
               <strong>

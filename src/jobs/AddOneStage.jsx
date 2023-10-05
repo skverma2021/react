@@ -57,6 +57,14 @@ const AddOneStage = (props) => {
     }
   };
 
+  const bgColor = (theStage) => {
+    if (theStage % 2 == 0) {
+      return 'lightGray';
+    } else {
+      return 'lightBlue';
+    }
+  };
+
   return (
     <>
       <Box
@@ -64,7 +72,10 @@ const AddOneStage = (props) => {
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          marginTop: '10px',
+
+          marginTop: '0px',
+          backgroundColor: `${bgColor(stageId)}`,
+          height: '50px',
         }}
       >
         <div style={{ width: '40px' }}>{stageId}</div>
@@ -91,6 +102,7 @@ const AddOneStage = (props) => {
         <div style={{ width: '300px' }}>
           <input
             value={theStart || ''}
+            type='date'
             onChange={(e) => {
               return setTheStart(e.target.value);
             }}
@@ -99,6 +111,7 @@ const AddOneStage = (props) => {
         <div style={{ width: '300px' }}>
           <input
             value={theEnd || ''}
+            type='date'
             onChange={(e) => {
               return setTheEnd(e.target.value);
             }}
