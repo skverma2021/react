@@ -6,7 +6,18 @@ import MenuItem from '@mui/material/MenuItem';
 // import './workPlan.css';
 
 const AddOneStage = (props) => {
-  const { stageId, theStage, theJob, depttId, startDt, endDt } = props;
+  const {
+    stageId,
+    theStage,
+    theJob,
+    depttId,
+    startDt,
+    endDt,
+    theVal,
+    jobStartDt,
+    jobEndDt,
+    jobValue,
+  } = props;
   // console.log(stageId, theStage, theJob, depttId, startDt, endDt);
 
   // const [upd, setUpd] = useState(false);
@@ -17,6 +28,26 @@ const AddOneStage = (props) => {
   const [deptts, setDeptts] = useState([]);
   const [theStart, setTheStart] = useState(startDt);
   const [theEnd, setTheEnd] = useState(endDt);
+  const [stageVal, setStageVal] = useState(theVal);
+  const [err, setErr] = useState('');
+  const [errorOccurred, setErrorOccurred] = useState(false);
+
+  const goBack = () => {
+    window.history.back();
+  };
+
+  useEffect(() => {
+    // Simulate an error condition
+    if (err) {
+      setErrorOccurred(true);
+
+      // Set a delay before going back
+      const timeoutId = setTimeout(goBack, 5000);
+
+      // Clear the timeout if the component unmounts (optional)
+      return () => clearTimeout(timeoutId);
+    }
+  }, [err]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +70,7 @@ const AddOneStage = (props) => {
           depttId: theDeptt,
           schDtStart: theStart,
           schDtEnd: theEnd,
+          shareVal: stageVal,
         });
       } else {
         await axios.put(
@@ -47,6 +79,7 @@ const AddOneStage = (props) => {
             depttId: theDeptt,
             schDtStart: theStart,
             schDtEnd: theEnd,
+            shareVal: stageVal,
           }
         );
       }
@@ -54,6 +87,7 @@ const AddOneStage = (props) => {
       // navigate('/');
     } catch (error) {
       console.log(error);
+      setErr('Record could not be added');
     }
   };
 
@@ -64,7 +98,19 @@ const AddOneStage = (props) => {
       return 'lightBlue';
     }
   };
-
+  if (err)
+    return (
+      <div>
+        {errorOccurred ? (
+          <p style={{ color: 'red' }}>
+            An error occurred. Going back to the previous page in 5 seconds...
+          </p>
+        ) : (
+          <p>No error.</p>
+        )}
+        <button onClick={goBack}>Cancel</button>
+      </div>
+    );
   return (
     <>
       <Box
@@ -103,6 +149,8 @@ const AddOneStage = (props) => {
           <input
             value={theStart || ''}
             type='date'
+            min={jobStartDt}
+            max={jobEndDt}
             onChange={(e) => {
               return setTheStart(e.target.value);
             }}
@@ -112,11 +160,25 @@ const AddOneStage = (props) => {
           <input
             value={theEnd || ''}
             type='date'
+            min={jobStartDt}
+            max={jobEndDt}
             onChange={(e) => {
               return setTheEnd(e.target.value);
             }}
           />
         </div>
+        <div style={{ width: '300px' }}>
+          <input
+            value={stageVal || ''}
+            name='stageVal'
+            min='0'
+            max={jobValue}
+            onChange={(e) => {
+              return setStageVal(e.target.value);
+            }}
+          />
+        </div>
+
         <div style={{ width: '200px' }}>
           <button onClick={saveRec}>save</button>
         </div>

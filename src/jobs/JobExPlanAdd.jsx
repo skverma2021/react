@@ -34,7 +34,7 @@ function JobExPlanAdd() {
     try {
       const res = await axios.get(`http://localhost:3000/api/ExStages/${id}`);
       setStages(res.data);
-      // console.log(res.data);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -65,10 +65,20 @@ function JobExPlanAdd() {
         <div style={{ width: '300px' }}>Department</div>
         <div style={{ width: '300px' }}>Date[start]</div>
         <div style={{ width: '300px' }}>Date[End]</div>
+        <div style={{ width: '300px' }}>Value</div>
         <div style={{ width: '200px' }}>Action</div>
       </Box>
       {stages.map((t) => {
-        return <AddOneStage key={t.stageId} {...t} theJob={id} />;
+        return (
+          <AddOneStage
+            key={t.stageId}
+            {...t}
+            theJob={id}
+            jobStartDt={theJob.jobStart}
+            jobEndDt={theJob.jobEnd}
+            jobVal={theJob.jobValue}
+          />
+        );
       })}
       {/* </div> */}
     </>
