@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BookDet = ({ empId, bookDay }) => {
+const BookDet = ({ empId, bookDay, m, y }) => {
   const [bData, setBData] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const BookDet = ({ empId, bookDay }) => {
   const getBookingDet = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/booking/${empId}/${bookDay.id}`
+        `http://localhost:3000/api/booking/${empId}/${bookDay.id}/${m}/${y}`
       );
       setBData(res.data);
     } catch (error) {

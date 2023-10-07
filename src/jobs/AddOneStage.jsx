@@ -36,18 +36,22 @@ const AddOneStage = (props) => {
     window.history.back();
   };
 
+  // useEffect(() => {
+  //   // Simulate an error condition
+  //   if (err) {
+  //     setErrorOccurred(true);
+
+  //     // Set a delay before going back
+  //     const timeoutId = setTimeout(goBack, 5000);
+
+  //     // Clear the timeout if the component unmounts (optional)
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [err]);
+
   useEffect(() => {
-    // Simulate an error condition
-    if (err) {
-      setErrorOccurred(true);
-
-      // Set a delay before going back
-      const timeoutId = setTimeout(goBack, 5000);
-
-      // Clear the timeout if the component unmounts (optional)
-      return () => clearTimeout(timeoutId);
-    }
-  }, [err]);
+    return () => setErr('');
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +66,7 @@ const AddOneStage = (props) => {
   }, []);
 
   const saveRec = async () => {
+    // setErr('');
     try {
       if (!upd) {
         await axios.post('http://localhost:3000/api/WorkPlans', {
@@ -84,10 +89,12 @@ const AddOneStage = (props) => {
         );
       }
       console.log(`Done!`);
+      setErr('');
       // navigate('/');
     } catch (error) {
       console.log(error);
       setErr('Record could not be added');
+      // setStageVal('');
     }
   };
 
@@ -98,19 +105,19 @@ const AddOneStage = (props) => {
       return 'lightBlue';
     }
   };
-  if (err)
-    return (
-      <div>
-        {errorOccurred ? (
-          <p style={{ color: 'red' }}>
-            An error occurred. Going back to the previous page in 5 seconds...
-          </p>
-        ) : (
-          <p>No error.</p>
-        )}
-        <button onClick={goBack}>Cancel</button>
-      </div>
-    );
+  // if (err)
+  //   return (
+  //     <div>
+  //       {errorOccurred ? (
+  //         <p style={{ color: 'red' }}>
+  //           An error occurred. Going back to the previous page in 5 seconds...
+  //         </p>
+  //       ) : (
+  //         <p>No error.</p>
+  //       )}
+  //       <button onClick={goBack}>Cancel</button>
+  //     </div>
+  //   );
   return (
     <>
       <Box
@@ -173,6 +180,7 @@ const AddOneStage = (props) => {
             name='stageVal'
             min='0'
             max={jobValue}
+            style={{ color: `${err ? 'red' : 'black'}` }}
             onChange={(e) => {
               return setStageVal(e.target.value);
             }}

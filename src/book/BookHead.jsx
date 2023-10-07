@@ -32,7 +32,9 @@ const BookHead = () => {
 
   const getWpDet = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/bookHeads/${id}`);
+      const res = await axios.get(
+        `http://localhost:3000/api/bookHeads/${id}/${m}/${y}`
+      );
       setWpDet(res.data);
       // console.log(res.data);
     } catch (error) {
@@ -105,7 +107,7 @@ const BookHead = () => {
           {bookDays.map((d) => {
             return (
               <tr key={d.id}>
-                <BookDet empId={id} bookDay={d} />
+                <BookDet empId={id} bookDay={d} m={m} y={y} />
               </tr>
             );
           })}

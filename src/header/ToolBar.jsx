@@ -36,6 +36,8 @@ function ToolBar({ setIsAuthenticated }) {
       {` `}
       <Link to='/bd/jobs/add'> addJobs</Link>
       {` `}
+      <Link to={`/booking/${userData.eID}`}> bookings</Link>
+      {` `}
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout
