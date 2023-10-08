@@ -88,8 +88,10 @@ const BookDet = ({ empId, bookDay, m, y }) => {
               type='text'
               value={t.theBooking || ''}
               onChange={(e) => handleInputChange(index, e)}
+              disabled={t.d1 < 0 || t.d2 < 0}
               style={{ border: 'none', padding: '0', width: '100%' }}
             />
+            {/* {t.d1}, {t.d2} */}
           </td>
         );
       })}
