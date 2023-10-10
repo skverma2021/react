@@ -77,6 +77,7 @@ function JobExPlanAdd() {
             jobStartDt={theJob.jobStart}
             jobEndDt={theJob.jobEnd}
             jobVal={theJob.jobValue}
+            saveCount={t.depttId ? 1 : 0}
           />
         );
       })}

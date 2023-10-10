@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const BookDet = ({ empId, bookDay, m, y }) => {
   const [bData, setBData] = useState([]);
+  const [saveCount, setSaveCount] = useState(0);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     getBookingDet();
@@ -20,6 +22,10 @@ const BookDet = ({ empId, bookDay, m, y }) => {
     }
   };
 
+  // useEffect(() => {
+  //   setSaveCount(bData.toUpd);
+  // }, []);
+
   const handleInputChange = (index, e) => {
     const newValue = e.target.value;
     setBData((prevBData) => {
@@ -31,12 +37,15 @@ const BookDet = ({ empId, bookDay, m, y }) => {
 
   const handleUpdAdd = () => {
     bData.map((t) => {
-      if (t.toUpd > 0) {
+      // if (t.toUpd > 0) {
+      if (t.toUpd > 0 || (t.toUpd == 0 && saveCount > 0)) {
         //update
-        updBooking(empId, t.theWpId, bookDay.id, t.theBooking);
+        if (t.theBooking)
+          updBooking(empId, t.theWpId, bookDay.id, t.theBooking);
       } else {
         //Add
-        addBooking(empId, t.theWpId, bookDay.id, t.theBooking);
+        if (t.theBooking > 0)
+          addBooking(empId, t.theWpId, bookDay.id, t.theBooking);
       }
     });
   };
@@ -50,8 +59,10 @@ const BookDet = ({ empId, bookDay, m, y }) => {
     };
     try {
       const res = await axios.put(`http://localhost:3000/api/booking/`, rec);
+      setErr(false);
     } catch (error) {
       console.log(error);
+      setErr(true);
     }
   };
   const addBooking = async (e, wp, d, b) => {
@@ -63,8 +74,11 @@ const BookDet = ({ empId, bookDay, m, y }) => {
     };
     try {
       const res = await axios.post(`http://localhost:3000/api/booking/`, rec);
+      setSaveCount(saveCount + 1);
+      setErr(false);
     } catch (error) {
       console.log(error);
+      setErr(true);
     }
   };
 
@@ -85,11 +99,19 @@ const BookDet = ({ empId, bookDay, m, y }) => {
             }}
           >
             <input
-              type='text'
+              type='number'
               value={t.theBooking || ''}
+              max='24'
+              min='0'
               onChange={(e) => handleInputChange(index, e)}
               disabled={t.d1 < 0 || t.d2 < 0}
-              style={{ border: 'none', padding: '0', width: '100%' }}
+              style={{
+                border: 'none',
+                padding: '0',
+                width: '100%',
+                color: `${err ? 'red' : 'black'}`,
+              }}
+              // style={{ color: `${err ? 'red' : 'black'}` }}
             />
             {/* {t.d1}, {t.d2} */}
           </td>

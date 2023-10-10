@@ -14,6 +14,7 @@ const AddOneStage = (props) => {
     startDt,
     endDt,
     theVal,
+    saveCount,
     jobStartDt,
     jobEndDt,
     jobValue,
@@ -21,16 +22,20 @@ const AddOneStage = (props) => {
   // console.log(stageId, theStage, theJob, depttId, startDt, endDt);
 
   // const [upd, setUpd] = useState(false);
-  let upd = false;
-  if (depttId) upd = true;
+  // let upd = false;
+  // if (depttId) upd = true;
 
   const [theDeptt, setTheDeptt] = useState(depttId);
+  const [count, setCount] = useState(saveCount);
   const [deptts, setDeptts] = useState([]);
   const [theStart, setTheStart] = useState(startDt);
   const [theEnd, setTheEnd] = useState(endDt);
   const [stageVal, setStageVal] = useState(theVal);
-  const [err, setErr] = useState('');
+  const [formTouched, setFormTouched] = useState(false);
+  const [err, setErr] = useState(false);
   const [errorOccurred, setErrorOccurred] = useState(false);
+
+  // if (depttId) setUpd(true);
 
   const goBack = () => {
     window.history.back();
@@ -65,10 +70,28 @@ const AddOneStage = (props) => {
     fetchData();
   }, []);
 
-  const saveRec = async () => {
+  const handleDepttChange = (e) => {
+    setTheDeptt(e.target.value);
+    setFormTouched(true);
+  };
+  const handleDtStartChange = (e) => {
+    setTheStart(e.target.value);
+    setFormTouched(true);
+  };
+  const handleDtEndChange = (e) => {
+    setTheEnd(e.target.value);
+    setFormTouched(true);
+  };
+  const handleShareValChange = (e) => {
+    setStageVal(e.target.value);
+    setFormTouched(true);
+  };
+
+  const saveRec = async (event) => {
     // setErr('');
+    event.preventDefault();
     try {
-      if (!upd) {
+      if (count == 0) {
         await axios.post('http://localhost:3000/api/WorkPlans', {
           jobId: theJob,
           stageId: stageId,
@@ -89,11 +112,14 @@ const AddOneStage = (props) => {
         );
       }
       console.log(`Done!`);
-      setErr('');
+      setErr(false);
+      setFormTouched(false);
+      setCount(count + 1);
+      // setUpd(true);
       // navigate('/');
     } catch (error) {
-      console.log(error);
-      setErr('Record could not be added');
+      console.log(error.response.statusText);
+      setErr(true);
       // setStageVal('');
     }
   };
@@ -120,77 +146,75 @@ const AddOneStage = (props) => {
   //   );
   return (
     <>
-      <Box
-        key={stageId}
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
+      <form onSubmit={saveRec}>
+        <div
+          key={stageId}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
 
-          marginTop: '0px',
-          backgroundColor: `${bgColor(stageId)}`,
-          height: '50px',
-        }}
-      >
-        <div style={{ width: '40px' }}>{stageId}</div>
-        <div style={{ width: '300px' }}>{theStage}</div>
-        <div style={{ width: '300px' }}>
-          <select
-            name='depttId'
-            id='depttId'
-            value={theDeptt || ''}
-            onChange={(e) => {
-              return setTheDeptt(e.target.value);
-            }}
-          >
-            <option value=''>Select Deptt</option>
-            {deptts.map((d) => {
-              return (
-                <option key={d.id} value={d.id}>
-                  {d.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div style={{ width: '300px' }}>
-          <input
-            value={theStart || ''}
-            type='date'
-            min={jobStartDt}
-            max={jobEndDt}
-            onChange={(e) => {
-              return setTheStart(e.target.value);
-            }}
-          />
-        </div>
-        <div style={{ width: '300px' }}>
-          <input
-            value={theEnd || ''}
-            type='date'
-            min={jobStartDt}
-            max={jobEndDt}
-            onChange={(e) => {
-              return setTheEnd(e.target.value);
-            }}
-          />
-        </div>
-        <div style={{ width: '300px' }}>
-          <input
-            value={stageVal || ''}
-            name='stageVal'
-            min='0'
-            max={jobValue}
-            style={{ color: `${err ? 'red' : 'black'}` }}
-            onChange={(e) => {
-              return setStageVal(e.target.value);
-            }}
-          />
-        </div>
+            marginTop: '0px',
+            backgroundColor: `${bgColor(stageId)}`,
+            height: '50px',
+          }}
+        >
+          <div style={{ width: '40px' }}>{stageId}</div>
+          <div style={{ width: '300px' }}>{theStage}</div>
+          <div style={{ width: '300px' }}>
+            <select
+              name='depttId'
+              id='depttId'
+              value={theDeptt || ''}
+              onChange={handleDepttChange}
+            >
+              <option value=''>Select Deptt</option>
+              {deptts.map((d) => {
+                return (
+                  <option key={d.id} value={d.id}>
+                    {d.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div style={{ width: '300px' }}>
+            <input
+              value={theStart || ''}
+              type='date'
+              min={jobStartDt}
+              max={jobEndDt}
+              onChange={handleDtStartChange}
+            />
+          </div>
+          <div style={{ width: '300px' }}>
+            <input
+              value={theEnd || ''}
+              type='date'
+              min={jobStartDt}
+              max={jobEndDt}
+              onChange={handleDtEndChange}
+              style={{ color: `${err ? 'red' : 'black'}` }}
+            />
+          </div>
+          <div style={{ width: '300px' }}>
+            <input
+              type='number'
+              value={stageVal || ''}
+              name='stageVal'
+              min='0'
+              max={jobValue}
+              style={{ color: `${err ? 'red' : 'black'}` }}
+              onChange={handleShareValChange}
+            />
+          </div>
 
-        <div style={{ width: '200px' }}>
-          <button onClick={saveRec}>save</button>
+          <div style={{ width: '200px' }}>
+            <button type='submit' disabled={formTouched == false}>
+              save
+            </button>
+          </div>
         </div>
-      </Box>
+      </form>
     </>
   );
 };
