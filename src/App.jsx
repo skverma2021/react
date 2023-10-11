@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useNavigate } from 'react-router-dom';
 
 import Home from './home/Home';
 import Auth from './auth/Auth';
@@ -21,15 +22,19 @@ import EmpAdd from './hr/EmpAdd';
 import JobAdd from './jobs/JobAdd';
 import BookHead from './book/BookHead';
 import BookMonthYear from './book/BookMonthYear';
+import ChangePass from './auth/ChangePass';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const navigate = useNavigate();
+  // if (!isAuthenticated) navigate('/');
 
   return (
     <>
       <header>
         {isAuthenticated && <ToolBar setIsAuthenticated={setIsAuthenticated} />}
       </header>
+
       <Routes>
         <Route
           path='/'
@@ -42,6 +47,24 @@ function App() {
           }
         />
 
+        <Route
+          path='/hr/cp'
+          element={
+            isAuthenticated && (
+              <ChangePass setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
+        />
+        {/* <Route
+          path='/hr/cp'
+          element={
+            isAuthenticated ? (
+              <ChangePass setIsAuthenticated={setIsAuthenticated} />
+            ) : (
+              <Auth setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
+        /> */}
         <Route path='/hr/emp' element={isAuthenticated && <Emps />} />
         <Route path='/hr/emp/add' element={isAuthenticated && <EmpAdd />} />
         <Route path='/hr/emp/upd/:id' element={isAuthenticated && <EmpUpd />} />

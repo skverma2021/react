@@ -23,6 +23,8 @@ function ToolBar({ setIsAuthenticated }) {
       {` `}
       <Link to='/hr/emp/add'> NewEmp</Link>
       {` `}
+      <Link to='/hr/cp'> ChangePassword</Link>
+      {` `}
       <Link to='/' onClick={logOutUser}>
         {' '}
         Logout

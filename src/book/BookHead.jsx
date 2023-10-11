@@ -88,11 +88,11 @@ const BookHead = () => {
                   <small>
                     {t.nameJob}
                     <br />
-                    <i>{t.nameStage}</i>
+                    <i>{t.nameStage}</i>[{t.wpId}]
                     <br />
                     {t.dtStart} to {t.dtEnd}
                     <br />
-                    {t.wpId}
+                    {t.workPlanDepttShare}/{t.consumed}
                     <br />
                   </small>
                 </th>
