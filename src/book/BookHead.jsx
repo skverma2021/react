@@ -107,7 +107,13 @@ const BookHead = () => {
           {bookDays.map((d) => {
             return (
               <tr key={d.id}>
-                <BookDet empId={id} bookDay={d} m={m} y={y} />
+                <BookDet
+                  empId={id}
+                  bookDay={d}
+                  m={m}
+                  y={y}
+                  hourlyRate={empDet.theHrRate}
+                />
               </tr>
             );
           })}

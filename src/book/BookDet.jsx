@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BookDet = ({ empId, bookDay, m, y }) => {
+const BookDet = ({ empId, bookDay, m, y, hourlyRate }) => {
   const [bData, setBData] = useState([]);
   const [saveCount, setSaveCount] = useState(0);
   const [err, setErr] = useState(false);
@@ -41,21 +41,22 @@ const BookDet = ({ empId, bookDay, m, y }) => {
       if (t.toUpd > 0 || (t.toUpd == 0 && saveCount > 0)) {
         //update
         if (t.theBooking)
-          updBooking(empId, t.theWpId, bookDay.id, t.theBooking);
+          updBooking(empId, t.theWpId, bookDay.id, t.theBooking, hourlyRate);
       } else {
         //Add
         if (t.theBooking > 0)
-          addBooking(empId, t.theWpId, bookDay.id, t.theBooking);
+          addBooking(empId, t.theWpId, bookDay.id, t.theBooking, hourlyRate);
       }
     });
   };
 
-  const updBooking = async (e, wp, d, b) => {
+  const updBooking = async (e, wp, d, b, h) => {
     const rec = {
       empId: e,
       workPlanId: wp,
       dateId: d,
       booking: b ? b : 0,
+      bookingVal: b * h,
     };
     try {
       const res = await axios.put(`http://localhost:3000/api/booking/`, rec);
@@ -65,12 +66,13 @@ const BookDet = ({ empId, bookDay, m, y }) => {
       setErr(true);
     }
   };
-  const addBooking = async (e, wp, d, b) => {
+  const addBooking = async (e, wp, d, b, h) => {
     const rec = {
       empId: e,
       workPlanId: wp,
       dateId: d,
       booking: b,
+      bookingVal: b * h,
     };
     try {
       const res = await axios.post(`http://localhost:3000/api/booking/`, rec);

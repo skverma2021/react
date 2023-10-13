@@ -65,7 +65,9 @@ function JobExPlan() {
         <div style={{ width: '300px' }}>Department</div>
         <div style={{ width: '300px' }}>Date[start]</div>
         <div style={{ width: '300px' }}>Date[End]</div>
-        <div style={{ width: '200px' }}>Action</div>
+        <div style={{ width: '300px' }}>Allotted</div>
+        <div style={{ width: '300px' }}>Consumed</div>
+        {/* <div style={{ width: '200px' }}>Action</div> */}
       </Box>
       {stages.map((t) => {
         return (
@@ -82,7 +84,9 @@ function JobExPlan() {
             <div style={{ width: '300px' }}>{t.theDeptt}</div>
             <div style={{ width: '300px' }}>{t.dtStart}</div>
             <div style={{ width: '300px' }}>{t.dtEnd}</div>
-            <div style={{ width: '200px' }}>Act</div>
+            <div style={{ width: '300px' }}>{t.allotted}</div>
+            <div style={{ width: '300px' }}>{t.booked}</div>
+            {/* <div style={{ width: '200px' }}>Act</div> */}
           </Box>
         );
       })}

@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
-const deleteJobData = async (theJobId) => {
-  try {
-    const res = await axios.delete(
-      `http://localhost:3000/api/jobs/${theJobId}`
-    );
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const deleteJobData = async (theJobId) => {
+//   try {
+//     const res = await axios.delete(
+//       `http://localhost:3000/api/jobs/${theJobId}`
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const columns = [
   {
@@ -36,7 +36,7 @@ const columns = [
     headerName: 'Client',
     footerName: 'Client',
     field: 'shortName',
-    width: 150,
+    width: 140,
     type: 'text',
     sortable: true,
   },
@@ -44,7 +44,7 @@ const columns = [
     headerName: 'StartDate',
     footerName: 'StartDate',
     field: 'theStart',
-    width: 150,
+    width: 140,
     type: 'text',
     sortable: true,
   },
@@ -52,9 +52,39 @@ const columns = [
     headerName: 'EndDate',
     footerName: 'EndDate',
     field: 'theEnd',
-    width: 150,
+    width: 140,
     type: 'text',
     sortable: true,
+  },
+  {
+    headerName: 'OrdValue',
+    footerName: 'OrdValue',
+    field: 'ordValue',
+    width: 100,
+    type: 'text',
+    sortable: true,
+  },
+  {
+    headerName: 'Allotted',
+    footerName: 'Allotted',
+    field: 'allotted',
+    width: 100,
+    type: 'text',
+    sortable: true,
+  },
+  {
+    headerName: 'Booked',
+    footerName: 'Booked',
+    field: 'bookedSoFar',
+    width: 100,
+    type: 'text',
+    sortable: true,
+  },
+  {
+    field: 'id2',
+    headerName: 'Status',
+    width: 80,
+    renderCell: (params) => <Link to={`./ex/${params.id}`}>status</Link>,
   },
   {
     field: 'id1',
@@ -62,12 +92,12 @@ const columns = [
     width: 80,
     renderCell: (params) => <Link to={`./upd/${params.id}`}>updJob</Link>,
   },
-  {
-    field: 'id2',
-    headerName: 'exPlan',
-    width: 80,
-    renderCell: (params) => <Link to={`./ex/${params.id}`}>exPlan</Link>,
-  },
+  // {
+  //   field: 'id2',
+  //   headerName: 'exPlan',
+  //   width: 80,
+  //   renderCell: (params) => <Link to={`./ex/${params.id}`}>exPlan</Link>,
+  // },
   {
     field: 'id3',
     headerName: 'upd',
