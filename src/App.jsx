@@ -23,6 +23,8 @@ import JobAdd from './jobs/JobAdd';
 import BookHead from './book/BookHead';
 import BookMonthYear from './book/BookMonthYear';
 import ChangePass from './auth/ChangePass';
+import ReportsHR from './hr/ReportsHR';
+import ReportsBD from './jobs/ReportsBD';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -75,8 +77,10 @@ function App() {
 
         <Route path='/hr/transfer' element={isAuthenticated && <Transfer />} />
         <Route path='/hr/posting' element={isAuthenticated && <Posting />} />
+        <Route path='/hr/reports' element={isAuthenticated && <ReportsHR />} />
 
         <Route path='/bd/jobs' element={isAuthenticated && <JobAll />} />
+        <Route path='/bd/reports' element={isAuthenticated && <ReportsBD />} />
         <Route path='/bd/jobs/add' element={isAuthenticated && <JobAdd />} />
         <Route
           path='/bd/jobs/upd/:id'

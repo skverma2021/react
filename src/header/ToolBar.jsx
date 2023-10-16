@@ -23,6 +23,8 @@ function ToolBar({ setIsAuthenticated }) {
       {` `}
       <Link to='/hr/emp/add'> NewEmp</Link>
       {` `}
+      <Link to='/hr/reports'> Reports</Link>
+      {` `}
       <Link to='/hr/cp'> ChangePassword</Link>
       {` `}
       <Link to='/' onClick={logOutUser}>
@@ -37,6 +39,8 @@ function ToolBar({ setIsAuthenticated }) {
       <Link to='/bd/jobs'> allJobs</Link>
       {` `}
       <Link to='/bd/jobs/add'> addJobs</Link>
+      {` `}
+      <Link to='/bd/reports'> Reports</Link>
       {` `}
       <Link to={`/booking/${userData.eID}`}> bookings</Link>
       {` `}
