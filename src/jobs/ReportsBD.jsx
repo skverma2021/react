@@ -37,7 +37,7 @@ const ReportsBD = () => {
         onClick={handleClick}
         style={{
           width: '100%',
-          height: '50px',
+          height: '30px',
           textAlign: 'right',
           color: 'blue',
         }}

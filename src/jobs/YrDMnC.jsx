@@ -24,14 +24,21 @@ const YrDMnC = () => {
       0
     );
   };
+  const bgColor = (theYr) => {
+    if (theYr % 2 == 0) {
+      return 'lightGray';
+    } else {
+      return 'lightBlue';
+    }
+  };
   return (
     <>
-      <h3>
+      <h3 style={{ height: '40px' }}>
         Booking Summary - Year-Department-Month-Wise Bookings across Clients
       </h3>
       <table style={{ border: '1px solid black', width: '100%' }}>
         <thead>
-          <tr>
+          <tr style={{ backgroundColor: 'lightcyan' }}>
             <th style={{ border: '1px solid black' }}>Year</th>
             <th style={{ border: '1px solid black' }}>Department</th>
             <th style={{ border: '1px solid black' }}>Month</th>
@@ -46,7 +53,7 @@ const YrDMnC = () => {
         <tbody>
           {jSumm.map((t) => {
             return (
-              <tr key={t.Yr}>
+              <tr key={t.Yr} style={{ backgroundColor: `${bgColor(t.Yr)}` }}>
                 <td style={{ border: '1px solid gray' }}>{t.Yr}</td>
                 <td style={{ border: '1px solid gray' }}>{t.theDeptt}</td>
                 <td style={{ border: '1px solid gray' }}>{t.Mn}</td>
@@ -74,7 +81,7 @@ const YrDMnC = () => {
           })}
         </tbody>
         <tfoot>
-          <tr>
+          <tr style={{ backgroundColor: 'lightcyan' }}>
             <td>Total</td>
             <td style={{ border: '1px solid gray', textAlign: 'center' }}>-</td>
             <td style={{ border: '1px solid gray', textAlign: 'center' }}>-</td>
