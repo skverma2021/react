@@ -21,7 +21,7 @@ const BookHead = () => {
   const getEmpDet = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/empBookHead/${id}`
+        `http://localhost:3000/api/booking/empheader/${id}`
       );
       setEmpDet(res.data[0]);
       //   console.log(res.data[0]);
@@ -33,7 +33,7 @@ const BookHead = () => {
   const getWpDet = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/bookHeads/${id}/${m}/${y}`
+        `http://localhost:3000/api/booking/bookheader/${id}/${m}/${y}`
       );
       setWpDet(res.data);
       // console.log(res.data);
@@ -44,7 +44,7 @@ const BookHead = () => {
   const getBookingDates = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/bookDates/${m}/${y}`
+        `http://localhost:3000/api/booking/bookdates/${m}/${y}`
       );
       setBookDays(res.data);
       // console.log(res.data);

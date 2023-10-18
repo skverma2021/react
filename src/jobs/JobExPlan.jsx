@@ -14,7 +14,7 @@ function JobExPlan() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/jobClient/${id}`
+          `http://localhost:3000/api/jobs/client/${id}`
         );
         setTheJob(res.data[0]);
         // console.log(theJob);

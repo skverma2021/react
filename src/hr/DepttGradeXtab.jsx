@@ -24,10 +24,17 @@ const DepttGradeXtab = () => {
       0
     );
   };
+  const bgColor = (theYr) => {
+    if (theYr % 2 == 0) {
+      return 'lightGray';
+    } else {
+      return 'lightBlue';
+    }
+  };
   return (
     <>
       <h1>Employees Summary - Numbers accross Grades</h1>
-      <table style={{ border: '1px solid black', width: '50%' }}>
+      <table style={{ border: '1px solid black', width: '100%' }}>
         <thead>
           <tr>
             <th style={{ border: '1px solid black' }}>Department</th>
@@ -43,7 +50,10 @@ const DepttGradeXtab = () => {
         <tbody>
           {eSumm.map((t) => {
             return (
-              <tr key={t.theDepartment}>
+              <tr
+                key={t.theDepttId}
+                style={{ backgroundColor: `${bgColor(t.theDepttId)}` }}
+              >
                 <td style={{ border: '1px solid gray' }}>{t.theDepartment}</td>
                 <td style={{ border: '1px solid gray', textAlign: 'center' }}>
                   {t.E1}

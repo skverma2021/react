@@ -27,7 +27,7 @@ const ChangePass = ({ setIsAuthenticated }) => {
       return;
     }
     try {
-      await axios.put(`http://localhost:3000/api/cp/${userData.eID}`, {
+      await axios.put(`http://localhost:3000/api/emps/cp/${userData.eID}`, {
         passwd: pass.repeatPass,
       });
       localStorage.clear();

@@ -31,7 +31,7 @@ function JobUpd() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/clientsShort`);
+        const res = await axios.get(`http://localhost:3000/api/clients/short`);
         setClients(res.data);
 
         // setEmp({...emp, cityId:});
@@ -128,7 +128,9 @@ function JobUpd() {
                   id='clientId'
                   value={theClient || ''}
                   onChange={(e) => {
-                    return setTheClient(e.target.value);
+                    setTheClient(e.target.value);
+                    setFormTouched(true);
+                    return;
                   }}
                 >
                   {/* <option value=''>Select Client</option> */}

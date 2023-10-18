@@ -28,7 +28,8 @@ const JobAdd = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/clientsShort`);
+        // const res = await axios.get(`http://localhost:3000/api/clientsShort`);
+        const res = await axios.get(`http://localhost:3000/api/clients/short`);
         setClients(res.data);
       } catch (error) {
         console.log(error);

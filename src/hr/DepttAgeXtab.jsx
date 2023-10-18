@@ -24,10 +24,17 @@ const DepttAgeXtab = () => {
       0
     );
   };
+  const bgColor = (theYr) => {
+    if (theYr % 2 == 0) {
+      return 'lightGray';
+    } else {
+      return 'lightBlue';
+    }
+  };
   return (
     <>
       <h1>Employees Summary - Numbers accross AgeGroups</h1>
-      <table style={{ border: '1px solid black', width: '50%' }}>
+      <table style={{ border: '1px solid black', width: '100%' }}>
         <thead>
           <tr>
             <th style={{ border: '1px solid black' }}>Department</th>
@@ -42,7 +49,10 @@ const DepttAgeXtab = () => {
         <tbody>
           {eSumm.map((t) => {
             return (
-              <tr key={t.depttName}>
+              <tr
+                key={t.theDepttId}
+                style={{ backgroundColor: `${bgColor(t.theDepttId)}` }}
+              >
                 <td style={{ border: '1px solid gray' }}>{t.depttName}</td>
                 <td style={{ border: '1px solid gray', textAlign: 'center' }}>
                   {t.gr20s}
