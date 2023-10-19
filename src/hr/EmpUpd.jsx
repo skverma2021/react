@@ -275,7 +275,9 @@ const EmpUpd = () => {
                   id='cityId'
                   value={theCity || ''}
                   onChange={(e) => {
-                    return setTheCity(e.target.value);
+                    setTheCity(e.target.value);
+                    setFormTouched(true);
+                    return;
                   }}
                 >
                   {cities.map((c) => {
