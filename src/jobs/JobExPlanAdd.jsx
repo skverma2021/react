@@ -32,7 +32,9 @@ function JobExPlanAdd() {
 
   const getAllStages = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/ExStages/${id}`);
+      const res = await axios.get(
+        `http://localhost:3000/api/jobs/ExStages/${id}`
+      );
       setStages(res.data);
       console.log(res.data);
     } catch (error) {
