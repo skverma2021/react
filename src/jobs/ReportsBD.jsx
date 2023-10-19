@@ -15,7 +15,8 @@ const ReportsBD = () => {
   };
 
   const showContent = (x) => {
-    switch (x % 4) {
+    const y = Math.abs(x);
+    switch (y % 4) {
       case 0:
         return <YrMn />;
       case 1:
@@ -27,7 +28,8 @@ const ReportsBD = () => {
     }
   };
   const showBtnLable = (x) => {
-    switch (x % 4) {
+    const y = Math.abs(x);
+    switch (y % 4) {
       case 0:
         return 'Year-Month';
       case 1:

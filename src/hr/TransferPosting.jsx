@@ -18,7 +18,7 @@ const TransferPosting = () => {
   const getEmpDet = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/empBookHead/${id}`
+        `http://localhost:3000/api/booking/empheader/${id}`
       );
       setEmpDet(res.data[0]);
     } catch (error) {

@@ -44,7 +44,7 @@ const Posting = ({ theEmp }) => {
       if (tpContext.tpState.edgId) {
         console.log(theEmp, theDesig, fromDt);
         await axios.put(
-          `http://localhost:3000/api/designation/${tpContext.tpState.edgId}/empDesig`,
+          `http://localhost:3000/api/designation/empDesig/${tpContext.tpState.edgId}`,
           {
             empId: theEmp,
             desigId: theDesig,
@@ -54,7 +54,7 @@ const Posting = ({ theEmp }) => {
         tpContext.resetTP();
         tpContext.updDesigRec();
       } else {
-        await axios.post('http://localhost:3000/api/designation/posting', {
+        await axios.post('http://localhost:3000/api/designation/empdesig', {
           empId: theEmp,
           desigId: theDesig,
           fromDt: fromDt,

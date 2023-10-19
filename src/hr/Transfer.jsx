@@ -55,7 +55,7 @@ const Transfer = ({ theEmp }) => {
     try {
       if (tpContext.tpState.edpId) {
         await axios.put(
-          `http://localhost:3000/api/department/${tpContext.tpState.edpId}/empDeptt`,
+          `http://localhost:3000/api/department/empdeptt/${tpContext.tpState.edpId}`,
           {
             empId: theEmp,
             depttId: theDeptt,
@@ -66,7 +66,7 @@ const Transfer = ({ theEmp }) => {
         tpContext.updDepttRec();
       } else {
         // console.log('Hi-2', theEmp, theDeptt, fromDt);
-        await axios.post('http://localhost:3000/api/department/transfer', {
+        await axios.post('http://localhost:3000/api/department/empdeptt', {
           empId: theEmp,
           depttId: theDeptt,
           fromDt: fromDt,

@@ -19,7 +19,7 @@ const PostingTrail = ({ theEmp }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/designation/${theEmp}/trail`
+          `http://localhost:3000/api/designation/trail/${theEmp}`
         );
         setPostings(res.data);
       } catch (error) {
@@ -33,7 +33,7 @@ const PostingTrail = ({ theEmp }) => {
     if (postings.length == 1) return;
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/designation/${theEmpDesigId}/empDesig`
+        `http://localhost:3000/api/designation/empDesig/${theEmpDesigId}`
       );
       tpContext.resetTP();
       tpContext.updDesigRec();

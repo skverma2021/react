@@ -13,7 +13,7 @@ const TransferTrail = ({ theEmp }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/department/${theEmp}/trail`
+          `http://localhost:3000/api/department/empdeptt/${theEmp}`
         );
         setTransfers(res.data);
       } catch (error) {
@@ -27,7 +27,7 @@ const TransferTrail = ({ theEmp }) => {
     if (transfers.length == 1) return;
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/department/${theEmpDepttId}/empDeptt`
+        `http://localhost:3000/api/department/empdeptt/${theEmpDepttId}`
       );
       tpContext.resetTP();
       tpContext.updDepttRec();
