@@ -54,36 +54,34 @@ const PostingTrail = ({ theEmp }) => {
           backgroundColor: 'lightslategray',
         }}
       >
-        <div style={{ width: '30%', border: '1px solid black' }}>
+        <div style={{ width: '25%', border: '1px solid black' }}>
           Discipline
         </div>
-        <div style={{ width: '10%', border: '1px solid black' }}>Grade</div>
-        <div style={{ width: '10%', border: '1px solid black' }}>
-          HourlyRate
-        </div>
-        <div style={{ width: '30%', border: '1px solid black' }}>
+        <div style={{ width: '7%', border: '1px solid black' }}>Grade</div>
+        <div style={{ width: '7%', border: '1px solid black' }}>HourlyRate</div>
+        <div style={{ width: '36%', border: '1px solid black' }}>
           Designation
         </div>
-        <div style={{ width: '10%', border: '1px solid black' }}>from</div>
+        <div style={{ width: '15%', border: '1px solid black' }}>from</div>
         <div style={{ width: '5%', border: '1px solid black' }}>upd</div>
         <div style={{ width: '5%', border: '1px solid black' }}>del</div>
       </div>
       {postings.map((t) => {
         return (
           <div key={t.theId} style={{ display: 'flex', width: '100%' }}>
-            <div style={{ width: '30%', border: '1px solid black' }}>
+            <div style={{ width: '25%', border: '1px solid black' }}>
               {t.theDiscp}
             </div>
-            <div style={{ width: '10%', border: '1px solid black' }}>
+            <div style={{ width: '7%', border: '1px solid black' }}>
               {t.theGrade}
             </div>
-            <div style={{ width: '10%', border: '1px solid black' }}>
+            <div style={{ width: '7%', border: '1px solid black' }}>
               {t.theHourlyRate}
             </div>
-            <div style={{ width: '30%', border: '1px solid black' }}>
+            <div style={{ width: '36%', border: '1px solid black' }}>
               {t.theDesig}
             </div>
-            <div style={{ width: '10%', border: '1px solid black' }}>
+            <div style={{ width: '15%', border: '1px solid black' }}>
               {t.theFromDt}
             </div>
             <div style={{ width: '5%', border: '1px solid black' }}>

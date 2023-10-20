@@ -2,13 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../home/Spinner';
 
 const ChangePass = ({ setIsAuthenticated }) => {
   const [pass, setPass] = useState({ newPass: '', repeatPass: '' });
+  const [status, setStatus] = useState('typing');
+  const [formTouched, setFormTouched] = useState(false);
   const [err, setErr] = useState('');
   const [userData, setUserData] = useState({});
 
   const navigate = useNavigate();
+
+  let timeoutId;
+  const goHome = () => {
+    localStorage.clear();
+    setIsAuthenticated(false);
+    navigate('/');
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const decoded = jwt_decode(token);
@@ -17,27 +32,36 @@ const ChangePass = ({ setIsAuthenticated }) => {
 
   const onValChange = (e) => {
     setPass({ ...pass, [e.target.name]: e.target.value });
+    setFormTouched(true);
   };
 
   const checkPass = async (event) => {
+    setStatus('busy');
     event.preventDefault();
     // console.log({ userData });
     if (pass.newPass !== pass.repeatPass) {
       setErr('Passwords did not match');
-      return;
+      // return;
     }
     try {
       await axios.put(`http://localhost:3000/api/emps/cp/${userData.eID}`, {
         passwd: pass.repeatPass,
       });
-      localStorage.clear();
-      setIsAuthenticated(false);
-      setErr('Passwords changed. Login again');
-      navigate('/');
+      // localStorage.clear();
+      // setIsAuthenticated(false);
+      setStatus('success');
+      timeoutId = setTimeout(goHome, 2000);
     } catch (error) {
+      setErr('Passwords could not be updated');
       console.log(error);
     }
   };
+
+  if (err) return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
+
+  if (status === 'success')
+    return <h1 style={{ color: 'blue' }}>Password updated successfully !</h1>;
+  if (status === 'busy') return <Spinner />;
 
   return (
     <>
@@ -104,8 +128,24 @@ const ChangePass = ({ setIsAuthenticated }) => {
                 </tr>
                 <tr>
                   <td>
-                    <input
+                    <button
                       type='submit'
+                      disabled={formTouched == false}
+                      // style={{
+                      //   display: 'block',
+                      //   width: '100%',
+                      //   padding: '10px',
+                      //   marginTop: '20px',
+                      //   background: '#49c1a2',
+                      //   color: '#fff',
+                      //   cursor: 'pointer',
+                      // }}
+                    >
+                      Update
+                    </button>
+                    {/* <input
+                      type='submit'
+                      disabled={formTouched == false}
                       style={{
                         display: 'block',
                         width: '100%',
@@ -115,7 +155,7 @@ const ChangePass = ({ setIsAuthenticated }) => {
                         color: '#fff',
                         cursor: 'pointer',
                       }}
-                    />
+                    /> */}
                   </td>
                   <td>
                     <p style={{ color: 'red' }}>{err}</p>

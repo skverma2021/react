@@ -2,35 +2,25 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../home/Spinner';
-import { useNavigate } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 
 function JobUpd() {
   const [job, setJob] = useState({});
   const [clients, setClients] = useState([]);
+  const [theClient, setTheClient] = useState('');
 
   const [err, setErr] = useState('');
   const [formTouched, setFormTouched] = useState(false);
   const [status, setStatus] = useState('typing');
+
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  let timeoutId;
-  const goHome = () => {
-    // setStatus('success');
-    navigate('/');
-  };
-
-  useEffect(() => {
-    return () => clearTimeout(timeoutId);
-  }, []);
-  // };
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/jobs/${id}`);
         setJob(res.data[0]);
+        setTheClient(res.data[0].clientId);
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +33,8 @@ function JobUpd() {
       try {
         const res = await axios.get(`http://localhost:3000/api/clients/short`);
         setClients(res.data);
+
+        // setEmp({...emp, cityId:});
       } catch (error) {
         console.log(error);
       }
@@ -56,11 +48,32 @@ function JobUpd() {
   };
 
   const updJobData = async (event) => {
+    // const dateParts = job.ordDateStart.split('/');
+    // const formattedDate = new Date(
+    //   dateParts[0],
+    //   dateParts[1] - 1,
+    //   dateParts[2]
+    // );
+    // const formattedDateString = formattedDate.toISOString();
+    // console.log(formattedDateString);
+    // setJob({ ...job, [ordDateStart]: formattedDateString });
+
+    // const dateParts1 = job.ordDateEnd.split('/');
+    // const formattedDate1 = new Date(
+    //   dateParts1[0],
+    //   dateParts1[1] - 1,
+    //   dateParts1[2]
+    // );
+    // const formattedDateString1 = formattedDate1.toISOString();
+    // setJob({ ...job, [ordDateEnd]: formattedDateString1 });
+
     event.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/api/jobs/${id}`, job);
+      await axios.put(`http://localhost:3000/api/jobs/${id}`, {
+        ...job,
+        clientId: theClient,
+      });
       setStatus('success');
-      timeoutId = setTimeout(goHome, 1000);
     } catch (error) {
       console.log(error);
       setErr('Record could not be updated');
@@ -113,9 +126,11 @@ function JobUpd() {
                 <select
                   name='clientId'
                   id='clientId'
-                  value={job.clientId || ''}
+                  value={theClient || ''}
                   onChange={(e) => {
-                    return onValChange(e);
+                    setTheClient(e.target.value);
+                    setFormTouched(true);
+                    return;
                   }}
                 >
                   {/* <option value=''>Select Client</option> */}

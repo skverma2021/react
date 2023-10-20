@@ -16,7 +16,7 @@ import Spinner from '../home/Spinner';
 const EmpUpd = () => {
   const [emp, setEmp] = useState({});
   const [cities, setCities] = useState([]);
-  const [theCity, setTheCity] = useState('');
+  // const [theCity, setTheCity] = useState('');
   const [err, setErr] = useState('');
   const [formTouched, setFormTouched] = useState(false);
   const [status, setStatus] = useState('typing');
@@ -29,7 +29,7 @@ const EmpUpd = () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/emps/${id}`);
         setEmp(res.data[0]);
-        setTheCity(res.data[0].cityId);
+        // setTheCity(res.data[0].cityId);
       } catch (error) {
         setErr('error retrieving employee data');
         console.log(error);
@@ -73,10 +73,7 @@ const EmpUpd = () => {
           Authorization: `Bearer ${token}`, // Set the token in the 'Authorization' header
         },
       });
-      await axiosInstance.put(`/api/emps/${id}`, {
-        ...emp,
-        cityId: theCity,
-      });
+      await axiosInstance.put(`/api/emps/${id}`, emp);
       setStatus('success');
     } catch (error) {
       console.log(error);
@@ -182,7 +179,7 @@ const EmpUpd = () => {
                       return onValChange(e);
                     }}
                   />
-                    <label for='Mr'>Mr</label>
+                    <label htmlFor='Mr'>Mr</label>
                 </div>
                 <div style={{ display: 'flex' }}>
                   <input
@@ -195,7 +192,7 @@ const EmpUpd = () => {
                       return onValChange(e);
                     }}
                   />
-                    <label for='Ms'>Ms</label>
+                    <label htmlFor='Ms'>Ms</label>
                 </div>
               </td>
             </tr>
@@ -233,7 +230,7 @@ const EmpUpd = () => {
                       return onValChange(e);
                     }}
                   />
-                    <label for='male'>Male</label>
+                    <label htmlFor='male'>Male</label>
                 </div>
                 <div style={{ display: 'flex' }}>
                   <input
@@ -246,7 +243,7 @@ const EmpUpd = () => {
                       return onValChange(e);
                     }}
                   />
-                    <label for='female'>Female</label>
+                    <label htmlFor='female'>Female</label>
                 </div>
               </td>
             </tr>
@@ -273,11 +270,9 @@ const EmpUpd = () => {
                 <select
                   name='cityId'
                   id='cityId'
-                  value={theCity || ''}
+                  value={emp.cityId || ''}
                   onChange={(e) => {
-                    setTheCity(e.target.value);
-                    setFormTouched(true);
-                    return;
+                    return onValChange(e);
                   }}
                 >
                   {cities.map((c) => {
