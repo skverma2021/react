@@ -21,9 +21,18 @@ const EmpUpd = () => {
   const [formTouched, setFormTouched] = useState(false);
   const [status, setStatus] = useState('typing');
 
-  // const navigate = useNavigate();
-
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  let timeoutId;
+  const goHome = () => {
+    // setStatus('success');
+    navigate('/');
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutId);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,6 +84,7 @@ const EmpUpd = () => {
       });
       await axiosInstance.put(`/api/emps/${id}`, emp);
       setStatus('success');
+      timeoutId = setTimeout(goHome, 1000);
     } catch (error) {
       console.log(error);
       setErr('The Update failed');

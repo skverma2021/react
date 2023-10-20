@@ -25,7 +25,7 @@ function JobUpd() {
   useEffect(() => {
     return () => clearTimeout(timeoutId);
   }, []);
-  // };
+
   useEffect(() => {
     const fetchData = async () => {
       try {

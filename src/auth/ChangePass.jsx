@@ -35,32 +35,37 @@ const ChangePass = ({ setIsAuthenticated }) => {
     setFormTouched(true);
   };
 
-  const checkPass = async (event) => {
+  const handlePassChange = async (event) => {
     setStatus('busy');
     event.preventDefault();
     // console.log({ userData });
     if (pass.newPass !== pass.repeatPass) {
-      setErr('Passwords did not match');
-      // return;
-    }
-    try {
-      await axios.put(`http://localhost:3000/api/emps/cp/${userData.eID}`, {
-        passwd: pass.repeatPass,
-      });
-      // localStorage.clear();
-      // setIsAuthenticated(false);
-      setStatus('success');
-      timeoutId = setTimeout(goHome, 2000);
-    } catch (error) {
-      setErr('Passwords could not be updated');
-      console.log(error);
+      setPass({ newPass: '', repeatPass: '' });
+      setStatus('typing');
+      setFormTouched(false);
+      setErr('Try again - passwords did not match');
+    } else {
+      try {
+        await axios.put(`http://localhost:3000/api/emps/cp/${userData.eID}`, {
+          passwd: pass.repeatPass,
+        });
+        setStatus('success');
+        timeoutId = setTimeout(goHome, 2000);
+      } catch (error) {
+        setErr('Error');
+        console.log(error);
+      }
     }
   };
 
-  if (err) return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
+  if (err == 'Error') return <h1 style={{ color: 'red' }}>Error: {err}</h1>;
 
   if (status === 'success')
-    return <h1 style={{ color: 'blue' }}>Password updated successfully !</h1>;
+    return (
+      <h3 style={{ color: 'blue' }}>
+        Password updated successfully ! Login Again to proceed...
+      </h3>
+    );
   if (status === 'busy') return <Spinner />;
 
   return (
@@ -81,7 +86,7 @@ const ChangePass = ({ setIsAuthenticated }) => {
         <div
           style={{ margin: '30px auto', maxWidth: '500px', padding: '20px' }}
         >
-          <form onSubmit={checkPass}>
+          <form onSubmit={handlePassChange}>
             <table style={{ lineHeight: '75px' }}>
               <tbody>
                 <tr>
