@@ -100,7 +100,7 @@ const columns = [
   // },
   {
     field: 'id3',
-    headerName: 'upd',
+    headerName: 'ExPlan',
     width: 80,
     renderCell: (params) => <Link to={`./exAdd/${params.id}`}>addExPlan</Link>,
   },

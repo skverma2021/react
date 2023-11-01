@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import Home from './home/Home';
 import Auth from './auth/Auth';
@@ -25,6 +25,8 @@ import BookMonthYear from './book/BookMonthYear';
 import ChangePass from './auth/ChangePass';
 import ReportsHR from './hr/ReportsHR';
 import ReportsBD from './jobs/ReportsBD';
+
+import TPState from './context/tp/TPState';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -72,7 +74,13 @@ function App() {
         <Route path='/hr/emp/upd/:id' element={isAuthenticated && <EmpUpd />} />
         <Route
           path='/hr/emp/tp/:id'
-          element={isAuthenticated && <TransferPosting />}
+          element={
+            isAuthenticated && (
+              <TPState>
+                <TransferPosting />
+              </TPState>
+            )
+          }
         />
 
         <Route path='/hr/transfer' element={isAuthenticated && <Transfer />} />
